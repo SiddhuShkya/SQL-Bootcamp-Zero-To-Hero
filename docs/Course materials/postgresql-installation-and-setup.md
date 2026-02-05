@@ -154,7 +154,7 @@ You should be able to see something like the below in your screen:
 
 ---
 
-### 2. Installling PgAdmin (GUI)
+### 2. Installing PgAdmin (GUI)
 
 2.1 Go to your web/internet browser and search for **pgadmin.org**. From there go to download tab and click on **APT** from the **pgAdmin 4** section.
 
