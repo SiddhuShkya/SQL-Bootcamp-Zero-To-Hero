@@ -255,11 +255,48 @@ sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] h
 
 --- 
 
-## 3. Download dvdrental.tar file
+### 3. Register your local PosgrestSQL server
+
+When we install the pgadmin for the first time, we need to **register** our local PostgresSQL server so pgadmin knows where to look.
+
+3.1 From the pgadmin 4 desktop app, click on the **"Add New Server"** under **Quick Links**. You should see a new option menu pop up similar to the below one:
+
+<img src="../../images/register-server.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+
+3.2 From the poped up option menu, under the general tab enter **Name** as `Local DB`.
+
+<img src="../../images/server-name.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+3.3 Similarly, under the connection tab enter **Host name/address** as `localhost`, which tells the pgadmin that the database is on this computer. Enter the password you created earlier in the terminal and toggle on the save password, if you dont want type it everytime you open up your pgadmin.
+
+> You can leave everything else as it is.
+
+<img src="../../images/pgadmin-connection.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+3.4 Hit Save
+
+> You should be able to see your new "Local DB" entry under the **Servers** in the left side bar.
+
+<img src="../../images/localdb-server.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Your new localhost server for running your postgresql database has been successfully created.
+
+---
+
+### 4. Download dvdrental.tar file
 
 This **dvdrental.tar** file is a compressed version of the database, we will be using this for our SQL bootcamp course. We can download this file as a resource from the lecture.
 
-3.1 Download **dvdrental.tar** file as a resource from the lecture.
+4.1 Download **dvdrental.tar** file as a resource from the lecture.
 
 <img src="../../images/dvdrental-tar-file.png"
     alt="Image Caption"
@@ -276,6 +313,105 @@ siddhu@ubuntu:~/Downloads$ pwd
 
 > [!WARNING]
 > Keep in mind that we will only be downloading this file. Do not attempt to open it, unzip it or try to open it with any other program.
+
+4.2 Restart your device
+
+> Restart your computer to make sure that all the actual changes due to postgresql and pgadmin have taken place.
+
+```sh
+sudo reboot
+```
+
+4.3 Once you have restarted your pc, lets restore the database
+
+- Open your pgadmin 4 as you would open any other desktop app
+
+<img src="../../images/pgadmin4-lightmode.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+- Click on **Servers**, you should be able to see your previously registered **'Local DB'** server.
+
+<img src="../../images/pgadmin-localdb-server.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+*After sucessful connection, you will notice that there's a default database called `postgres`.*
+
+- Create a new database
+
+> Right click on your **Local DB** server. click on create and then database. You should see a new option menu `Create - Databse` pop up.
+
+<img src="../../images/create-database.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+- Type 'Database' name as `dvdrental` and hit 'Save'. You should be able to see your new database `dvdrental` alongside `postgres` (default database).
+
+<img src="../../images/dvdrental-database.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+*There are no tables or information in this database, since we created it just recently*
+
+- Restore the database
+
+> Right click on the `dvdrental` database and click on 'Restore'. You should see a pop up like the below one:
+
+<img src="../../images/dvdrental-restore.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Type in the path/location of the previously downloaded **dvdrental.tar** file
+
+```sh
+## Mine dvdrental.tar file path
+
+/home/siddhu/Downloads/dvdrental.tar
+```
+
+> Copy paste it to `Filename` field
+
+<img src="../../images/dvdrental-path.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Also from the **Data Options** tab, turn on `Pre-data`, `Post-data` & `Data`.
+
+<img src="../../images/dvdrental-data-options.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+*Leave everything else as default.*
+
+> Hit **Restore** and wait till the database has been restored.
+
+4.4 After restoring the database, right click on the `dvdrental` database and click on **Refresh** to apply the changes. After refreshing again right click on `dvdrental` and this time click on **Query Tool**.
+
+<img src="../../images/dvdrental-query-tool.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> [!NOTE]
+> Query tools is essentially what we are going to use for the rest of this course. This tool allows us to actually perform a query and ask for information back.
+
+4.5 Copy paste the below SQL query and run the script using the play button at the top.
+
+```sql
+SELECT * FROM film;
+```
+
+> You should see the table along with the value, similar to the below one.
+
+<img src="../../images/dvdrental-select-query.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+*If you see this information, then congartulations our PostgreSQL & PgAdmin has been set up successfully*
+
+---
+
+# <div align="center">Thank You for Going Through This Guide! 🙏✨</div>
 
 
 
