@@ -156,8 +156,126 @@ You should be able to see something like the below in your screen:
 
 ### 2. Installling PgAdmin (GUI)
 
+2.1 Go to your web/internet browser and search for **pgadmin.org**. From there go to download tab and click on **APT** from the **pgAdmin 4** section.
+
+> You can also directly use the link below:
+
+```text
+https://www.pgadmin.org/download/pgadmin-4-apt/
+```
+
+> Your browser should show a page like the below one
+
+<img src="../../images/pgadmin4-apt.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
 
 
+*You can follow the steps/commands given above, or you can follow the steps below:*
+
+2.2 First we need to set up the repository
+
+> Install the public key for the repository & add the configuration file.
+
+```sh
+# Install the curl utility if you don't have it
+sudo apt install curl
+
+# Install the public key for the repository
+curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+
+# Create the repository configuration file
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+```
+
+> For additinal information go to: [pgadmin-4-apt](https://www.pgadmin.org/download/pgadmin-4-apt/)
+
+2.3 Install pgAdmin
+
+- Now, lets update our package list and install the version you want
+
+    ```sh
+    sudo apt update
+    ```
+
+    In my case, my terminal got stuck time to time, so i ran the below commands to fix it
+
+    ```sh
+    # Create a backup folder
+    mkdir ~/repo_backup
+
+    # Move the files that are causing the hang
+    sudo mv /etc/apt/sources.list.d/warp.list ~/repo_backup/ 2>/dev/null
+    sudo mv /etc/apt/sources.list.d/shiftkey* ~/repo_backup/ 2>/dev/null
+
+    ## Clean and Update
+    sudo rm -rf /var/lib/apt/lists/partial/*
+    sudo apt update
+    ```
+
+- Specify which PgAdmin mode you want to install (desktop, web or both)
+
+    > For desktop mode only
+
+    ```sh
+    sudo apt install pgadmin4-desktop
+    ```
+
+    > For web mode only
+
+    ```sh
+    sudo apt install pgadmin4-web
+    ```
+
+    > For both mode (Recommended)
+
+    ```sh
+    sudo apt install pgadmin4
+    ```
+
+- (Optional) If you installed web mode only, then you need to configure the web server
+
+    ```sh
+    sudo /usr/pgadmin4/bin/setup-web.sh
+    ```
+
+2.4 After Installing the pgadmin4, you can now open the pgAdmin 4 as desktop mode like a regular app
+
+> From the apps menu search for **pgAdmin 4**
+
+<img src="../../images/pgadmin4-app.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Click and open up your pgadmin 4
+
+<img src="../../images/pgadmin4.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+--- 
+
+## 3. Download dvdrental.tar file
+
+This **dvdrental.tar** file is a compressed version of the database, we will be using this for our SQL bootcamp course. We can download this file as a resource from the lecture.
+
+3.1 Download **dvdrental.tar** file as a resource from the lecture.
+
+<img src="../../images/dvdrental-tar-file.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Remember the path the tar file will be downloaded on. For me its my downloads folder
+
+```sh
+siddhu@ubuntu:~/Downloads$ ls
+dvdrental.tar
+siddhu@ubuntu:~/Downloads$ pwd
+/home/siddhu/Downloads
+```
+
+> [!WARNING]
+> Keep in mind that we will only be downloading this file. Do not attempt to open it, unzip it or try to open it with any other program.
 
 
 
