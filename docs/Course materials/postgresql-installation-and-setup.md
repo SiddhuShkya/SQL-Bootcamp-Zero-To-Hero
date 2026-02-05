@@ -140,7 +140,7 @@ You should be able to see something like the below in your screen:
     ```
 
 > [!IMPORTANT]
-> ## System User vs Database User (PostgreSQL)
+> *System User vs Database User (PostgreSQL)*
 >
 > It helps to visualize that there are **two separate `postgres` identities** on your machine:
 >
