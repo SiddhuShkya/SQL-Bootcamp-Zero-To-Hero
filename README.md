@@ -8,7 +8,7 @@ This repository is dedicated to storing my learning resources like documents, no
       <img src="images/jose-portilla.png" alt="Jose Portilla" width="160"/>
     </td>
     <td>
-      <strong>Jose Portilla</strong> is a renowned online instructor and data professional, best known for his clear and structured teaching style.  
+      <strong>Jose Portilla</strong>, a renowned online instructor and data professional, best known for his clear and structured teaching style.  
       He has taught millions of students worldwide in fields such as SQL, Python, Data Science, and Machine Learning.  
       His courses focus on practical understanding, real-world examples, and building strong fundamentals.
     </td>
@@ -35,30 +35,30 @@ Throughout the course, we will be getting :
 
 ### Course Curriculum
 
-1. `Postgres Installation` ->  We will begin this course by installing PostgreSQL and PG Admin.
+1. `Postgres Installation` → We will begin this course by installing PostgreSQL and PG Admin.
 
 2. `Basic Sections` :
     
-    2.1 **Databases & Tables Basics** -> Creating databases and tables.
+    2.1 **Databases & Tables Basics** → Creating databases and tables.
 
-    2.2 **SQL Statement Fundamentals** -> Use SQL syntax to query the database and tables we created in the previous section.
+    2.2 **SQL Statement Fundamentals** → Use SQL syntax to query the database and tables we created in the previous section.
 
-    2.3 **GROUP BY Clause** -> Aggregating data and grouping results using aggregate functions.
+    2.3 **GROUP BY Clause** → Aggregating data and grouping results using aggregate functions.
 
-    2.4 **Assessment 1** -> First assessment test.
+    2.4 **Assessment 1** → First assessment test.
 
 3.  `Advanced Sections` :
 
-    3.1 **JOINS** -> 
+    3.1 **JOINS** →
 
-    3.2 **Advanced SQL Commands** -> 
+    3.2 **Advanced SQL Commands** →  
 
-    3.3 **Assessment 2** -> Second Assessment test.
+    3.3 **Assessment 2** → Second Assessment test.
 
 4. `Final Sections` :
 
-    4.1 **Create databases & tables** ->  Creating new databases & tables using SQL syntax.
+    4.1 **Create databases & tables** →  Creating new databases & tables using SQL syntax.
 
-    4.2 **Extra Lectures** -> Lecture on Views, using PostgreSQL with the python programming langauge.
+    4.2 **Extra Lectures** → Lecture on Views, using PostgreSQL with the python programming langauge.
 
 ---
