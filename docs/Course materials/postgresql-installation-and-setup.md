@@ -39,21 +39,21 @@ You should be able to see something like the below in your screen:
 
 1.3 Open up your terminal and copy, paste and run the below commands one by one:
 
-    - To install PostgreSQL on Ubuntu, use the apt command below:
+- To install PostgreSQL on Ubuntu, use the apt command below:
 
     ```sh
     sudo apt install postgresql postgresql-contrib
     ```
     *Enter your password and wait for the installation to complete*
 
-    - Additionally you can also specify the version of postgresql you want to install, using the below installation command.
+- Additionally you can also specify the version of postgresql you want to install, using the below installation command.
 
     ```sh
     sudo apt install postgresql-18
     ```
     *Replace "18" by the version you want*
 
-    - After completing the installation, verify the installation with the below commands
+- After completing the installation, verify the installation with the below commands
 
     > Command 1
 
