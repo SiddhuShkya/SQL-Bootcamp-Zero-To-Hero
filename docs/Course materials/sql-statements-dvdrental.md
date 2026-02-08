@@ -48,13 +48,55 @@ This document contains all the sql statements/queries we executed for this cours
 ```sql
 SELECT * FROM actor;
 ```
-| actor_id | first_name | last_name | last_update |
-|----------|------------|-----------|-------------|
-| 1 | Penelope | Guiness | 2013-05-26 14:47:57.62 |
-| 2 | Nick | Wahlberg | 2013-05-26 14:47:57.62 |
-| 3 | Ed | Chase | 2013-05-26 14:47:57.62 |
-| 4 | Jennifer | Davis | 2013-05-26 14:47:57.62 |
-| 5 | Johnny | Lollobrigida | 2013-05-26 14:47:57.62 |
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>actor_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>last_update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Penelope</td>
+      <td>Guiness</td>
+      <td>2013-05-26 14:47:57.62</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>2013-05-26 14:47:57.62</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Ed</td>
+      <td>Chase</td>
+      <td>2013-05-26 14:47:57.62</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Jennifer</td>
+      <td>Davis</td>
+      <td>2013-05-26 14:47:57.62</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Johnny</td>
+      <td>Lollobrigida</td>
+      <td>2013-05-26 14:47:57.62</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 > Returns all the columns from the `actor` table
 
@@ -63,13 +105,38 @@ SELECT * FROM actor;
 ```sql
 SELECT first_name FROM actor;
 ```
-| first_name |
-|------------|
-| Penelope |
-| Nick |
-| Ed |
-| Jennifer |
-| Johnny |
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Penelope</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Nick</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ed</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Jennifer</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Johnny</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 > Returns only the first_name column from the `actor` table
 
@@ -78,13 +145,45 @@ SELECT first_name FROM actor;
 ```sql
 SELECT first_name, last_name FROM actor;
 ```
-| first_name | last_name |
-|------------|-----------|
-| Penelope | Guiness |
-| Nick | Wahlberg |
-| Ed | Chase |
-| Jennifer | Davis |
-| Johnny | Lollobrigida |
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Penelope</td>
+      <td>Guiness</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ed</td>
+      <td>Chase</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Jennifer</td>
+      <td>Davis</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Johnny</td>
+      <td>Lollobrigida</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 > Returns first_name and last_name from `actor` table
 

@@ -18,14 +18,63 @@ This document will contain all the challenges that were presented to me for a be
 
 - `Expected Answer`: 
 
-| first_name | last_name | email |
-|------------|-----------|-------|
-| Jared | Ely | jared.ely@sakilacustomer.org |
-| Mary | Smith | mary.smith@sakilacustomer.org |
-| Patricia | Johnson | patricia.johnson@sakilacustomer.org |
-| Linda | Williams | linda.williams@sakilacustomer.org |
-| Barbara | Jones | barbara.jones@sakilacustomer.org |
-| ... | ... | ... |
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 - Hints:
     - Use the `customer` table
@@ -34,31 +83,146 @@ This document will contain all the challenges that were presented to me for a be
 
 - Solutions
 
-    - View all columns from `customer` table
+> View all columns from `customer` table
 
-    ```sql
-    SELECT * FROM customer;
-    ```
-    | customer_id | store_id | first_name | last_name | email | address_id | activebool | create_date | last_update | active |
-    |-------------|----------|------------|-----------|-------|------------|------------|-------------|-------------|--------|
-    | 524 | 1 | Jared | Ely | jared.ely@sakilacustomer.org | 530 | True | 2006-02-14 | 2013-05-26 14:49:45.738 | 1 |
-    | 1 | 1 | Mary | Smith | mary.smith@sakilacustomer.org | 5 | True | 2006-02-14 | 2013-05-26 14:49:45.738 | 1 |
-    | 2 | 1 | Patricia | Johnson | patricia.johnson@sakilacustomer.org | 6 | True | 2006-02-14 | 2013-05-26 14:49:45.738 | 1 |
-    | 3 | 1 | Linda | Williams | linda.williams@sakilacustomer.org | 7 | True | 2006-02-14 | 2013-05-26 14:49:45.738 | 1 |
-    | 4 | 2 | Barbara | Jones | barbara.jones@sakilacustomer.org | 8 | True | 2006-02-14 | 2013-05-26 14:49:45.738 | 1 |
+```sql
+SELECT * FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
-    - View first_name, last_name, email from `customer`
+> View first_name, last_name, email from `customer`
 
-    ```sql
-    SELECT first_name, last_name, email FROM customer;
-    ```
-    | first_name | last_name | email |
-    |------------|-----------|-------|
-    | Jared | Ely | jared.ely@sakilacustomer.org |
-    | Mary | Smith | mary.smith@sakilacustomer.org |
-    | Patricia | Johnson | patricia.johnson@sakilacustomer.org |
-    | Linda | Williams | linda.williams@sakilacustomer.org |
-    | Barbara | Jones | barbara.jones@sakilacustomer.org |
+```sql
+SELECT first_name, last_name, email FROM customer;
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 ---
 
