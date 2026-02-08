@@ -105,7 +105,6 @@ SELECT * FROM actor;
 ```sql
 SELECT first_name FROM actor;
 ```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -146,7 +145,6 @@ SELECT first_name FROM actor;
 SELECT first_name, last_name FROM actor;
 ```
 
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
