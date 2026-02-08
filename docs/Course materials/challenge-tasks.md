@@ -60,9 +60,8 @@ This document will contain all the challenges that were presented to me for a be
     </tr>
   </tbody>
 </table>
-</div>
 
-- Hints:
+- `Hints`:
     - Use the `customer` table
     - You can use the table drop-down to view what columns are available
     - You could also use SELECT * FROM `customer` to see all then columns
@@ -158,7 +157,6 @@ SELECT * FROM customer;
     </tr>
   </tbody>
 </table>
-</div>
 
 > View first_name, last_name, email from `customer`
 
@@ -207,8 +205,94 @@ SELECT first_name, last_name, email FROM customer;
     </tr>
   </tbody>
 </table>
-</div>
 
 ---
 
 ### 2. SELECT DISTINCT
+
+- `Business Situation`: 
+  - An Australian visitor isn't familiar with MPAA movie ratings (e.g. PG, PG-13, R, etc)
+  - We want to know the types of ratings, we have in our database.
+  - What ratings do we have available ? 
+
+
+- `Challenge`: Use what you've learned about SELECT DISTINCT to retrieve the distinct rating types our films could have in our database.
+
+- `Expected Answer`: 
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NC-17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PG-13</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PG</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>G</td>
+    </tr>
+  </tbody>
+</table>
+
+- `Hints`:
+  - Use the film table
+  - Use SELECT * FROM film; to see what columns are available.
+  - Or use drop down table menu in pgadmin.
+
+- `Solution`:
+
+> View alll the distinct rating from the `film` table
+
+```sql
+SELECT DISTINCT rating FROM film;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NC-17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PG-13</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PG</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>G</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 3. SELECT WHERE
