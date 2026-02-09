@@ -371,4 +371,141 @@ SELECT DISTINCT(rental_rate) FROM film;
 
 > Returns all the unique/distinct rental_rate present in the `film` table
 
-#### 1.3 **SELECT WHERE** statement
+#### 1.3 **COUNT** statement
+
+- View all columns from `payment` table
+
+```sql
+SELECT * FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> Returns all the information from the `payment` table
+
+- View the number of rows present in `payment` table.
+
+```sql
+SELECT COUNT(*) FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14596</td>
+    </tr>
+  </tbody>
+</table>
+
+> Return a single intgere value that indicates the number rows present in the `payment` table.
+
+- View the number of rows in the amount column
+
+```sql
+SELECT COUNT(amount) FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14596</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Note that using COUNT(*) or COUNT(amount) gives us the same number of result which is number of rows (14596). This is because the number of rows of the same table are always the same.
+
+- View the actual number of unique amount in the amount column.
+
+```sql
+SELECT COUNT(DISTINCT amount) FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(DISTINCT amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>19</td>
+    </tr>
+  </tbody>
+</table>
+
+> Returns the number of unique amounts in the amount column
+
+#### 1.4 **SELECT WHERE** statement
