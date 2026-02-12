@@ -445,7 +445,7 @@ SELECT COUNT(*) FROM payment;
   </tbody>
 </table>
 
-- View the number of rows in the amount column
+> View the number of rows in the amount column
 
 ```sql
 SELECT COUNT(amount) FROM payment;
@@ -1169,3 +1169,375 @@ WHERE rating != 'R';
 > You can also use the `<>` operator instead of `!=` as both of them behave the same way. 
 
 #### 1.5 **ORDER BY** statement
+
+> View all columns from `customer` table
+
+```sql
+SELECT * FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> Order the `customer` table based on the first_name of the user, which would be an alphabetical order based on first_name in ascending order.
+
+```sql
+SELECT * FROM customer
+ORDER BY first_name ASC;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>375</td>
+      <td>2</td>
+      <td>Aaron</td>
+      <td>Selby</td>
+      <td>aaron.selby@sakilacustomer.org</td>
+      <td>380</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>367</td>
+      <td>1</td>
+      <td>Adam</td>
+      <td>Gooch</td>
+      <td>adam.gooch@sakilacustomer.org</td>
+      <td>372</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525</td>
+      <td>2</td>
+      <td>Adrian</td>
+      <td>Clary</td>
+      <td>adrian.clary@sakilacustomer.org</td>
+      <td>531</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>217</td>
+      <td>2</td>
+      <td>Agnes</td>
+      <td>Bishop</td>
+      <td>agnes.bishop@sakilacustomer.org</td>
+      <td>221</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>389</td>
+      <td>1</td>
+      <td>Alan</td>
+      <td>Kahn</td>
+      <td>alan.kahn@sakilacustomer.org</td>
+      <td>394</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> For ordering in ascending order, you can either use the ASC keyword or leave it blank. 'SELECT * FROM customer ORDER BY first_name ASC' is equivalent to 'SELECT * FROM customer ORDER BY first_name'. 
+
+> Run the same query above, but this time return the result in descending order based on first_name column.
+
+```sql
+SELECT * FROM customer
+ORDER BY first_name DESC;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>479</td>
+      <td>1</td>
+      <td>Zachary</td>
+      <td>Hite</td>
+      <td>zachary.hite@sakilacustomer.org</td>
+      <td>484</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>174</td>
+      <td>2</td>
+      <td>Yvonne</td>
+      <td>Watkins</td>
+      <td>yvonne.watkins@sakilacustomer.org</td>
+      <td>178</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>190</td>
+      <td>2</td>
+      <td>Yolanda</td>
+      <td>Weaver</td>
+      <td>yolanda.weaver@sakilacustomer.org</td>
+      <td>194</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>212</td>
+      <td>2</td>
+      <td>Wilma</td>
+      <td>Richards</td>
+      <td>wilma.richards@sakilacustomer.org</td>
+      <td>216</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>219</td>
+      <td>2</td>
+      <td>Willie</td>
+      <td>Howell</td>
+      <td>willie.howell@sakilacustomer.org</td>
+      <td>223</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> Order the `customer` table such that the query first orders the table based on store_id to get all the results per store, and then organize it by first_name column.
+
+```sql
+SELECT store_id, first_name, last_name FROM customer
+ORDER BY store_id, first_name;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Adam</td>
+      <td>Gooch</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>Alan</td>
+      <td>Kahn</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>Albert</td>
+      <td>Crouse</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>Alice</td>
+      <td>Stewart</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>Alicia</td>
+      <td>Mills</td>
+    </tr>
+  </tbody>
+</table>
+
+> Run the same above query but this time order the rows based on 'store_id' in descending order to get results per store, followed by organzing it using the first_name column in ascending order.
+
+```sql
+SELECT first_name, last_name FROM customer
+ORDER BY store_id DESC, first_name ASC;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Aaron</td>
+      <td>Selby</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Adrian</td>
+      <td>Clary</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Agnes</td>
+      <td>Bishop</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Alberto</td>
+      <td>Henning</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Alex</td>
+      <td>Gresham</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Note that it is not necessary to specify the column which you are  using to order the table as long as the column exist in the original table. 
+
+#### 1.6 **LIMIT** statement
