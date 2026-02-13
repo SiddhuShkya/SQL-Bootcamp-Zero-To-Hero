@@ -468,3 +468,253 @@ WHERE address = '259 Ipoh Drive';
 ---
 
 ### 4. ORDER BY
+
+> `Challenge 1`: 
+
+- We want to reward our first 10 paying customers.
+- What are the customers ids of the first 10 customers who created a payment?
+
+> `Expected Answer`: 
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>416</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>516</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>239</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>592</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>264</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>481</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>139</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>595</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Hints`:
+
+- Use the payment table 
+- You will need to use both ORDER BY and LIMIT 
+- Remember you may need to specify ASC or DESC
+
+> `Solution`:
+
+```sql
+SELECT customer_id FROM payment
+ORDER BY payment_date ASC
+LIMIT 10;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>416</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>516</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>239</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>592</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>264</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>481</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>139</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>595</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Challenge 2`: 
+
+- A customer wants to quickly rent a video to watch over their short lunch break.
+- What are the titles of the 5 shortest (in length of runtime) movies?
+
+>`Expected Answer`: 
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alien Center</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Iron Moon</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kwai Homeward</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Labyrinth League</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ridgemont Submarine</td>
+      <td>46</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Hints`:
+
+- Use the film table
+- Take a look at the length column
+- You can use ORDER BY and LIMIT
+- Remember to use ASC or DESC to get desired results
+
+> `Solution`:
+
+```sql
+SELECT title, length FROM film 
+ORDER BY length ASC
+LIMIT 5;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alien Center</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Iron Moon</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kwai Homeward</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Labyrinth League</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ridgemont Submarine</td>
+      <td>46</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!IMPORTANT]
+> **length** is also highlighted, because it is also an SQL keyword aside from also being a column name. The above query will run as we intented it to, because it is a column name that exists in the specified table. You should try your best to avoid column names that match up with SQL keyword. One way to do this is capitalizing SQL keywords.
+
+---
+
+**Quick Bonus Question**:
+
+If the previous customer can watch any movie that is 50 minutes or less in runtime, how many options does she have?
+
+> `Expected Result` : 37
+
+> `Solution`:
+
+```sql
+SELECT COUNT(*) FROM film
+WHERE length <= 50;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>37</td>
+    </tr>
+  </tbody>
+</table>
+
+---

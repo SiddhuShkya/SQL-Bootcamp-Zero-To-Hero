@@ -1541,3 +1541,120 @@ ORDER BY store_id DESC, first_name ASC;
 > Note that it is not necessary to specify the column which you are  using to order the table as long as the column exist in the original table. 
 
 #### 1.6 **LIMIT** statement
+
+> View all columns from `payment` table
+
+```sql
+SELECT * FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> View the top 3 most recent purchases in the payment table.
+
+```sql
+SELECT * FROM payment
+ORDER BY payment_date DESC
+LIMIT 3;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31917</td>
+      <td>267</td>
+      <td>2</td>
+      <td>12066</td>
+      <td>7.98</td>
+      <td>2007-05-14 13:44:29.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>31918</td>
+      <td>267</td>
+      <td>2</td>
+      <td>13713</td>
+      <td>0.00</td>
+      <td>2007-05-14 13:44:29.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>31919</td>
+      <td>269</td>
+      <td>1</td>
+      <td>13025</td>
+      <td>3.98</td>
+      <td>2007-05-14 13:44:29.996577</td>
+    </tr>
+  </tbody>
+</table>
+
