@@ -1658,3 +1658,234 @@ LIMIT 3;
   </tbody>
 </table>
 
+#### 1.7 **BETWEEN** statement
+
+> View all the columns of the `payment` table
+
+```sql
+SELECT * FROM  payment
+LIMIT 3;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> View the rows, where the actual payments were done between $8 and $9.
+
+```sql
+SELECT * FROM  payment
+WHERE amount BETWEEN 8 AND 9;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17517</td>
+      <td>343</td>
+      <td>1</td>
+      <td>2980</td>
+      <td>8.99</td>
+      <td>2007-02-20 07:03:29.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17529</td>
+      <td>347</td>
+      <td>2</td>
+      <td>1711</td>
+      <td>8.99</td>
+      <td>2007-02-16 12:40:18.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17532</td>
+      <td>347</td>
+      <td>1</td>
+      <td>3092</td>
+      <td>8.99</td>
+      <td>2007-02-20 14:33:08.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17535</td>
+      <td>348</td>
+      <td>1</td>
+      <td>2041</td>
+      <td>8.99</td>
+      <td>2007-02-17 12:47:26.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17540</td>
+      <td>349</td>
+      <td>1</td>
+      <td>3067</td>
+      <td>8.99</td>
+      <td>2007-02-20 12:27:47.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> View the number of payments that satisfied the above condition.
+
+```sql
+SELECT COUNT(*) FROM  payment
+WHERE amount BETWEEN 8 AND 9;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>439</td>
+    </tr>
+  </tbody>
+</table>
+
+> View the number of payments that does not satify the above condition.
+
+```sql
+SELECT COUNT(*) FROM  payment
+WHERE amount NOT BETWEEN 8 AND 9;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14157</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the payments that happened on the first half of feburary 2007.
+
+```sql
+SELECT * FROM payment
+WHERE payment_date BETWEEN '2007-02-01' AND '2007-02-15';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17610</td>
+      <td>368</td>
+      <td>1</td>
+      <td>1186</td>
+      <td>0.99</td>
+      <td>2007-02-14 23:25:11.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17617</td>
+      <td>370</td>
+      <td>2</td>
+      <td>1190</td>
+      <td>6.99</td>
+      <td>2007-02-14 23:33:58.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17743</td>
+      <td>402</td>
+      <td>2</td>
+      <td>1194</td>
+      <td>4.99</td>
+      <td>2007-02-14 23:53:34.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17793</td>
+      <td>416</td>
+      <td>2</td>
+      <td>1158</td>
+      <td>2.99</td>
+      <td>2007-02-14 21:21:59.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17854</td>
+      <td>432</td>
+      <td>2</td>
+      <td>1180</td>
+      <td>5.99</td>
+      <td>2007-02-14 23:07:27.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Note that when we are dealing with timestamp information which includes both the date and hour, minutes, etc., PostgreSQL has to decide whether a day starts at 0:00 hours or at 24:00 hours. In the `BETWEEN` operator, PostgreSQL interprets date literals without time components as midnight (00:00:00) of that date. This means `BETWEEN '2007-02-01' AND '2007-02-15'` is equivalent to `BETWEEN '2007-02-01 00:00:00' AND '2007-02-15 00:00:00'`, which **excludes** all timestamps after midnight on February 15th. To include the entire day of February 15th, you should use `BETWEEN '2007-02-01' AND '2007-02-15 23:59:59'` or better yet, `BETWEEN '2007-02-01' AND '2007-02-16'` (exclusive upper bound), or use `payment_date >= '2007-02-01' AND payment_date < '2007-02-16'`.
+
+#### 1.8 **IN** statement
