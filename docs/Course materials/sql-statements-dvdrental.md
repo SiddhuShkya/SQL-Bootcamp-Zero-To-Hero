@@ -1889,3 +1889,913 @@ WHERE payment_date BETWEEN '2007-02-01' AND '2007-02-15';
 > Note that when we are dealing with timestamp information which includes both the date and hour, minutes, etc., PostgreSQL has to decide whether a day starts at 0:00 hours or at 24:00 hours. In the `BETWEEN` operator, PostgreSQL interprets date literals without time components as midnight (00:00:00) of that date. This means `BETWEEN '2007-02-01' AND '2007-02-15'` is equivalent to `BETWEEN '2007-02-01 00:00:00' AND '2007-02-15 00:00:00'`, which **excludes** all timestamps after midnight on February 15th. To include the entire day of February 15th, you should use `BETWEEN '2007-02-01' AND '2007-02-15 23:59:59'` or better yet, `BETWEEN '2007-02-01' AND '2007-02-16'` (exclusive upper bound), or use `payment_date >= '2007-02-01' AND payment_date < '2007-02-16'`.
 
 #### 1.8 **IN** statement
+
+> View all columns of `payment` table.
+
+```sql
+SELECT * FROM payment
+LIMIT 3;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> View the actual distinct values that are available in the amount column.
+
+```sql
+SELECT DISTINCT(amount) FROM payment
+ORDER BY amount;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.99</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.98</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.99</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.99</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>3.98</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3.99</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>4.99</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>5.98</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>5.99</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>6.99</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>7.98</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>7.99</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>8.97</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>8.99</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>9.98</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>9.99</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>10.99</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>11.99</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the information of the `payment` table where amount happens to be $0.99, $1.98 and $1.98.
+
+```sql
+SELECT * FROM payment
+WHERE amount IN (0.99, 1.98, 1.99)
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17514</td>
+      <td>343</td>
+      <td>2</td>
+      <td>1879</td>
+      <td>0.99</td>
+      <td>2007-02-17 01:26:00.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17515</td>
+      <td>343</td>
+      <td>2</td>
+      <td>1922</td>
+      <td>0.99</td>
+      <td>2007-02-17 04:32:51.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17518</td>
+      <td>343</td>
+      <td>1</td>
+      <td>3407</td>
+      <td>0.99</td>
+      <td>2007-02-21 14:42:28.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17521</td>
+      <td>344</td>
+      <td>1</td>
+      <td>1731</td>
+      <td>0.99</td>
+      <td>2007-02-16 14:00:38.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Notice that im not using quotes for the amount values. This is because the amount column is of numeric data type.
+
+> View the number of payments that has the amount which satisfies the above condition.
+
+```sql
+SELECT COUNT(*) FROM payment
+WHERE amount IN (0.99, 1.98, 1.99)
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3301</td>
+    </tr>
+  </tbody>
+</table>
+
+> Similarly, view the number of payments that doesnt have the amount which satisfies the above condition.
+
+```sql
+SELECT COUNT(*) FROM payment
+WHERE amount NOT IN (0.99, 1.98, 1.99)
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11295</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the columns of the `customer` table.
+
+```sql
+SELECT * FROM customer
+LIMIT 3;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the information from the `customer` table whose first_name is either 'John', 'Jake' or 'Julie'.
+
+```sql
+SELECT * FROM customer
+WHERE first_name IN ('John', 'Jake', 'Julie');
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>52</td>
+      <td>1</td>
+      <td>Julie</td>
+      <td>Sanchez</td>
+      <td>julie.sanchez@sakilacustomer.org</td>
+      <td>56</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>300</td>
+      <td>1</td>
+      <td>John</td>
+      <td>Farnsworth</td>
+      <td>john.farnsworth@sakilacustomer.org</td>
+      <td>305</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+*The output only shows 'Julie' & 'John' because 'Jake' doesnt exists in the `customer` table*
+
+#### 1.9 **LIKE & ILIKE** statement
+
+> View all the columns of the `customer` table.
+
+```sql
+SELECT * FROM customer
+LIMIT 3;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find out how many customers names that starts with an 'J'.
+
+```sql
+SELECT COUNT(*) FROM customer
+WHERE first_name LIKE 'J%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the information of `customer` that has first_name that starts with an 'J' and also whose last_name starts with an 'S'.
+
+```sql
+SELECT * FROM customer
+WHERE first_name LIKE 'J%' AND last_name LIKE 'S%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>52</td>
+      <td>1</td>
+      <td>Julie</td>
+      <td>Sanchez</td>
+      <td>julie.sanchez@sakilacustomer.org</td>
+      <td>56</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>328</td>
+      <td>2</td>
+      <td>Jeffrey</td>
+      <td>Spear</td>
+      <td>jeffrey.spear@sakilacustomer.org</td>
+      <td>333</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>353</td>
+      <td>1</td>
+      <td>Jonathan</td>
+      <td>Scarborough</td>
+      <td>jonathan.scarborough@sakilacustomer.org</td>
+      <td>358</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>387</td>
+      <td>2</td>
+      <td>Jesse</td>
+      <td>Schilling</td>
+      <td>jesse.schilling@sakilacustomer.org</td>
+      <td>392</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>397</td>
+      <td>1</td>
+      <td>Jimmy</td>
+      <td>Schrader</td>
+      <td>jimmy.schrader@sakilacustomer.org</td>
+      <td>402</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!IMPORTANT]
+> In the above statements i used capital 'J' and 'S' because i was using *LIKE*. If i were to use lowercase 'j' and 's', the result would be different. This is because *LIKE* is case sensitive. If you dont want to know the case of the letter in account, then you can also use *ILIKE*.
+
+> View all the information of `customer` that has first_name that starts with an 'J' and also whose last_name starts with an 's' using **ILIKE**.
+
+```sql
+SELECT * FROM customer
+WHERE first_name ILIKE 'j%' AND last_name ILIKE 's%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>52</td>
+      <td>1</td>
+      <td>Julie</td>
+      <td>Sanchez</td>
+      <td>julie.sanchez@sakilacustomer.org</td>
+      <td>56</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>328</td>
+      <td>2</td>
+      <td>Jeffrey</td>
+      <td>Spear</td>
+      <td>jeffrey.spear@sakilacustomer.org</td>
+      <td>333</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>353</td>
+      <td>1</td>
+      <td>Jonathan</td>
+      <td>Scarborough</td>
+      <td>jonathan.scarborough@sakilacustomer.org</td>
+      <td>358</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>387</td>
+      <td>2</td>
+      <td>Jesse</td>
+      <td>Schilling</td>
+      <td>jesse.schilling@sakilacustomer.org</td>
+      <td>392</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>397</td>
+      <td>1</td>
+      <td>Jimmy</td>
+      <td>Schrader</td>
+      <td>jimmy.schrader@sakilacustomer.org</td>
+      <td>402</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the information of `customer` that has 'er' somewhere in their first_name and also in last_name.
+
+```sql
+SELECT * FROM customer
+WHERE first_name LIKE '%er%' AND last_name LIKE '%er%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>54</td>
+      <td>1</td>
+      <td>Teresa</td>
+      <td>Rogers</td>
+      <td>teresa.rogers@sakilacustomer.org</td>
+      <td>58</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>61</td>
+      <td>2</td>
+      <td>Katherine</td>
+      <td>Rivera</td>
+      <td>katherine.rivera@sakilacustomer.org</td>
+      <td>65</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>156</td>
+      <td>1</td>
+      <td>Bertha</td>
+      <td>Ferguson</td>
+      <td>bertha.ferguson@sakilacustomer.org</td>
+      <td>160</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>161</td>
+      <td>1</td>
+      <td>Geraldine</td>
+      <td>Perkins</td>
+      <td>geraldine.perkins@sakilacustomer.org</td>
+      <td>165</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>185</td>
+      <td>1</td>
+      <td>Roberta</td>
+      <td>Harper</td>
+      <td>roberta.harper@sakilacustomer.org</td>
+      <td>189</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Notice, in the last row 'Harper', the 'er' is at the end. Therefore, % (sequence of characters) can also be nothing and that 'er' doesnt have to be between any other letters.
+
+> View all the information of the `customer` table where the first letter matches exactly one character, followed exactly by 'her'.
+
+```sql
+SELECT * FROM customer
+WHERE first_name LIKE '_her%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>59</td>
+      <td>1</td>
+      <td>Cheryl</td>
+      <td>Murphy</td>
+      <td>cheryl.murphy@sakilacustomer.org</td>
+      <td>63</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>72</td>
+      <td>2</td>
+      <td>Theresa</td>
+      <td>Watson</td>
+      <td>theresa.watson@sakilacustomer.org</td>
+      <td>76</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>119</td>
+      <td>1</td>
+      <td>Sherry</td>
+      <td>Marshall</td>
+      <td>sherry.marshall@sakilacustomer.org</td>
+      <td>123</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>297</td>
+      <td>1</td>
+      <td>Sherri</td>
+      <td>Rhodes</td>
+      <td>sherri.rhodes@sakilacustomer.org</td>
+      <td>302</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the information of `customer` whose first_name starts with an 'A' and also order the result in ascending order based on first_name.
+
+```sql
+SELECT * FROM customer
+WHERE first_name LIKE 'A%'
+ORDER BY first_name;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>375</td>
+      <td>2</td>
+      <td>Aaron</td>
+      <td>Selby</td>
+      <td>aaron.selby@sakilacustomer.org</td>
+      <td>380</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>367</td>
+      <td>1</td>
+      <td>Adam</td>
+      <td>Gooch</td>
+      <td>adam.gooch@sakilacustomer.org</td>
+      <td>372</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>525</td>
+      <td>2</td>
+      <td>Adrian</td>
+      <td>Clary</td>
+      <td>adrian.clary@sakilacustomer.org</td>
+      <td>531</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>217</td>
+      <td>2</td>
+      <td>Agnes</td>
+      <td>Bishop</td>
+      <td>agnes.bishop@sakilacustomer.org</td>
+      <td>221</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>389</td>
+      <td>1</td>
+      <td>Alan</td>
+      <td>Kahn</td>
+      <td>alan.kahn@sakilacustomer.org</td>
+      <td>394</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
