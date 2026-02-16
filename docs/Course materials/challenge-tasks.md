@@ -719,3 +719,193 @@ WHERE length <= 50;
 
 ---
 
+### 5. General Challenges
+
+These challenges are designed in such a way, so that we can utilize everything we have learned till now from this course.
+
+---
+---
+
+> `Challenge`: 
+
+*How many payments transactions were greater that $5.00?*
+
+> `My Solution`:
+
+```sql
+SELECT COUNT(*) FROM payment
+WHERE amount > 5.00;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3618</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+---
+
+> `Challenge`: 
+
+*How many actors have a first name that starts with the letter P?*
+
+> `My Solution`:
+
+```sql
+SELECT COUNT(*) FROM actor
+WHERE first_name LIKE 'P%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+---
+
+> `Challenge`: 
+
+*How many unique districts are our customers from?*
+
+> `My Solution`:
+
+```sql
+SELECT COUNT(DISTINCT district) FROM address;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(DISTINCT district)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>377</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+---
+
+> `Challenge`: 
+
+*Retrieve the list of names for those distinct districts from the previous questions*
+
+> `My Solution`:
+
+```sql
+SELECT DISTINCT district FROM address;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>district</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alberta</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>QLD</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nagasaki</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Attika</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+---
+
+> `Challenge`: 
+
+*How many films have a rating of R and a replacement cost between $5 and $15?*
+
+> `My Solution`:
+
+```sql
+SELECT COUNT(*) FROM film
+WHERE rating = 'R' 
+	AND replacement_cost BETWEEN 5 AND 15;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>52</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+---
+
+> `Challenge`: 
+
+*How many films have the word Truman somewhere in the title?*
+
+> `My Solution`:
+
+```sql
+SELECT * FROM film
+WHERE title ILIKE '%Truman%';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+---
+
