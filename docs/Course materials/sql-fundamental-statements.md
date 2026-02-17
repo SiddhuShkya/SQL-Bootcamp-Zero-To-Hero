@@ -39,9 +39,7 @@ This document contains all the sql statements/queries we executed for this cours
 
 ---
 
-### 1. SQL Statement Fundamentals
-
-#### 1.1 **SELECT** statement
+### 1. **SELECT** statement
 
 > View all columns from `actor` table
 
@@ -179,7 +177,7 @@ SELECT first_name, last_name FROM actor;
 > [!NOTE]
 > The order of the column names matters in the query as it determines the order of columns in the result set. [SELECT last_name, first_name] will display last_name in the first column and first_name in the second column.
 
-#### 1.2 **SELECT DISTINCT** statement
+### 2. **SELECT DISTINCT** statement
 
 > View all columns from `film` table
 
@@ -357,7 +355,7 @@ SELECT DISTINCT(rental_rate) FROM film;
   </tbody>
 </table>
 
-#### 1.3 **COUNT** statement
+### 3. **COUNT** statement
 
 > View all columns from `payment` table
 
@@ -488,7 +486,7 @@ SELECT COUNT(DISTINCT amount) FROM payment;
   </tbody>
 </table>
 
-#### 1.4 **SELECT** & **WHERE** statement
+### 4. **SELECT** & **WHERE** statement
 
 > View all columns from `customer` table.
 
@@ -1168,7 +1166,7 @@ WHERE rating != 'R';
 > [!NOTE]
 > You can also use the `<>` operator instead of `!=` as both of them behave the same way. 
 
-#### 1.5 **ORDER BY** statement
+### 5. **ORDER BY** statement
 
 > View all columns from `customer` table
 
@@ -1540,7 +1538,7 @@ ORDER BY store_id DESC, first_name ASC;
 > [!NOTE]
 > Note that it is not necessary to specify the column which you are  using to order the table as long as the column exist in the original table. 
 
-#### 1.6 **LIMIT** statement
+### 6. **LIMIT** statement
 
 > View all columns from `payment` table
 
@@ -1658,7 +1656,7 @@ LIMIT 3;
   </tbody>
 </table>
 
-#### 1.7 **BETWEEN** statement
+### 7. **BETWEEN** statement
 
 > View all the columns of the `payment` table
 
@@ -1888,7 +1886,7 @@ WHERE payment_date BETWEEN '2007-02-01' AND '2007-02-15';
 > [!NOTE]
 > Note that when we are dealing with timestamp information which includes both the date and hour, minutes, etc., PostgreSQL has to decide whether a day starts at 0:00 hours or at 24:00 hours. In the `BETWEEN` operator, PostgreSQL interprets date literals without time components as midnight (00:00:00) of that date. This means `BETWEEN '2007-02-01' AND '2007-02-15'` is equivalent to `BETWEEN '2007-02-01 00:00:00' AND '2007-02-15 00:00:00'`, which **excludes** all timestamps after midnight on February 15th. To include the entire day of February 15th, you should use `BETWEEN '2007-02-01' AND '2007-02-15 23:59:59'` or better yet, `BETWEEN '2007-02-01' AND '2007-02-16'` (exclusive upper bound), or use `payment_date >= '2007-02-01' AND payment_date < '2007-02-16'`.
 
-#### 1.8 **IN** statement
+### 8. **IN** statement
 
 > View all columns of `payment` table.
 
@@ -2263,7 +2261,7 @@ WHERE first_name IN ('John', 'Jake', 'Julie');
 
 *The output only shows 'Julie' & 'John' because 'Jake' doesnt exists in the `customer` table*
 
-#### 1.9 **LIKE & ILIKE** statement
+### 9. **LIKE & ILIKE** statement
 
 > View all the columns of the `customer` table.
 
@@ -2799,3 +2797,7 @@ ORDER BY first_name;
     </tr>
   </tbody>
 </table>
+
+---
+
+# <div align="center">Thank You for Going Through This Guide! 🙏✨</div>
