@@ -295,3 +295,306 @@ FROM film;
 
 ### 2. GROUP BY 
 
+> Explore the `payment` table.
+
+```sql
+SELECT * FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> Group the actual customer_id.
+
+```sql
+SELECT customer_id FROM payment 
+GROUP BY customer_id;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>341</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>342</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>343</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>344</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>345</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> The above query is just returning the unique customer_id, which is equivalent to the result of sql query: **SELECT DISTINCT customer_id FROM payment;**. This is beacause we simply grouping the customer_id column without using any aggregation function.
+
+> Find out which customer is spending the most money in total.
+
+```sql
+SELECT customer_id, SUM(amount) FROM payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>148</td>
+      <td>211.55</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>526</td>
+      <td>208.58</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>178</td>
+      <td>194.61</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>137</td>
+      <td>191.62</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>144</td>
+      <td>189.60</td>
+    </tr>
+  </tbody>
+</table>
+
+> Additionally, also find out how many transactions did each customer made.
+
+```sql
+SELECT customer_id, SUM(amount), COUNT(amount) FROM payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+      <th>COUNT(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>148</td>
+      <td>211.55</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>526</td>
+      <td>208.58</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>178</td>
+      <td>194.61</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>137</td>
+      <td>191.62</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>144</td>
+      <td>189.60</td>
+      <td>40</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find out the total amount spent per staff per customer.
+
+```sql
+SELECT 
+  staff_id,
+  customer_id,
+  SUM(amount) 
+FROM payment
+GROUP BY staff_id, customer_id
+ORDER BY staff_id;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>staff_id</th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>60.85</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>55.86</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>59.88</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>4</td>
+      <td>49.88</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>5</td>
+      <td>63.86</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find out how many transactions are being processed each day.
+
+```sql
+SELECT 
+	DATE(payment_date), 
+	SUM(amount)
+FROM payment
+GROUP BY DATE(payment_date)
+ORDER BY DATE(payment_date);
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DATE(payment_date)</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2007-02-14</td>
+      <td>116.73</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007-02-15</td>
+      <td>1188.92</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2007-02-16</td>
+      <td>1154.18</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2007-02-17</td>
+      <td>1188.17</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2007-02-18</td>
+      <td>1275.98</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!IMPORTANT]
+> The **DATE()** function extracts only the day portion of the timestamp information. We need to do this beacause the timestamp column has values down to the sub seconds.

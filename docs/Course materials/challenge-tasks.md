@@ -724,7 +724,6 @@ WHERE length <= 50;
 These challenges are designed in such a way, so that we can utilize everything we have learned till now from this course.
 
 ---
----
 
 > `Challenge`: 
 
@@ -751,7 +750,6 @@ WHERE amount > 5.00;
   </tbody>
 </table>
 
----
 ---
 
 > `Challenge`: 
@@ -780,7 +778,6 @@ WHERE first_name LIKE 'P%';
 </table>
 
 ---
----
 
 > `Challenge`: 
 
@@ -806,7 +803,6 @@ SELECT COUNT(DISTINCT district) FROM address;
   </tbody>
 </table>
 
----
 ---
 
 > `Challenge`: 
@@ -850,7 +846,6 @@ SELECT DISTINCT district FROM address;
 </table>
 
 ---
----
 
 > `Challenge`: 
 
@@ -879,7 +874,6 @@ WHERE rating = 'R'
 </table>
 
 ---
----
 
 > `Challenge`: 
 
@@ -907,5 +901,262 @@ WHERE title ILIKE '%Truman%';
 </table>
 
 ---
----
+
+### 6. GROUP BY
+
+> `Challenge 1`: 
+
+- We have 2 staff members, with staff IDs 1 and 2. We want to give a bonus to the staff member that handled the most payments. (Most in terms of number of payments processed, not total dollar amount).
+- How many payments did each staff member handle and who gets the bonus?
+
+> `Expected Result`:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>staff_id</th>
+      <th>COUNT(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7292</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7304</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Hints`:
+
+- Use the payment table
+- Understand the difference between COUNT and SUM
+
+> `Solution`:
+
+```sql
+SELECT staff_id, COUNT(*)
+FROM payment
+GROUP BY staff_id;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>staff_id</th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7292</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7304</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Challenge 2`: 
+
+- Corporate HQ is conducting a study om the relationship between replacement cost and a movie MPAA rating (e.g G, PG, R, etc..)
+
+- What is the average replacement cost per MPAA rating?
+
+  - Note: You may need to expand the AVG column to view correct results.
+
+> `Expected Result`:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rating</th>
+      <th>ROUND(AVG(replacement_cost), 3)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>G</td>
+      <td>20.125</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NC-17</td>
+      <td>20.138</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PG</td>
+      <td>18.959</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PG-13</td>
+      <td>20.403</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>R</td>
+      <td>20.231</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Hints`:
+
+- Use the film table
+- Recall that AVG returns back many significant digits, you can either stretch the column or use ROUND() to fix this issue.
+
+> `Solution`:
+
+```sql
+SELECT rating, ROUND(AVG(replacement_cost), 3) 
+FROM film
+GROUP BY rating;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rating</th>
+      <th>ROUND(AVG(replacement_cost), 3)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>G</td>
+      <td>20.125</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NC-17</td>
+      <td>20.138</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PG</td>
+      <td>18.959</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PG-13</td>
+      <td>20.403</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>R</td>
+      <td>20.231</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Challenge 3`: 
+
+- We are running a promotion to reward our top 5 customers with coupons.
+- What are the customers ids of the top 5 customers by total spend?
+
+> `Expected Result`:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>148</td>
+      <td>211.55</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>526</td>
+      <td>208.58</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>178</td>
+      <td>194.61</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>137</td>
+      <td>191.62</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>144</td>
+      <td>189.60</td>
+    </tr>
+  </tbody>
+</table>
+
+> `Hints`:
+
+- Use the payment table
+- Use ORDER BY
+- Recall you can order by the results of an aggregate function
+- You may want to use LIMIT to view just the top 5
+
+> `Solution`:
+
+```sql
+SELECT customer_id, SUM(amount)
+FROM payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC
+LIMIT 5;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>148</td>
+      <td>211.55</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>526</td>
+      <td>208.58</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>178</td>
+      <td>194.61</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>137</td>
+      <td>191.62</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>144</td>
+      <td>189.60</td>
+    </tr>
+  </tbody>
+</table>
 
