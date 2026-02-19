@@ -1160,3 +1160,171 @@ LIMIT 5;
   </tbody>
 </table>
 
+---
+
+### 7. HAVING
+
+`Challenge 1`: 
+
+- We are launching a platinum service for our most loyal customers. We will assign platinum status to customers that have had 40 or more transaction payments.
+
+- What customer_ids are eligible for platinum status>
+
+`Expected Results`:
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>144</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>148</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>526</td>
+      <td>42</td>
+    </tr>
+  </tbody>
+</table>
+
+`Hints`:
+
+- Use the payment table
+- Recall any column can be passed into a COUNT() call
+
+`Solution`:
+
+```sql
+SELECT customer_id, COUNT(*) FROM payment
+GROUP BY customer_id
+HAVING COUNT(*) >= 40;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>144</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>148</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>526</td>
+      <td>42</td>
+    </tr>
+  </tbody>
+</table>
+
+`Challenge 2`: 
+
+- What are the customers ids of customers who have spent more than $100 in payment transactions with our staff_id member 2?
+
+`Expected Results`:
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>148</td>
+      <td>110.78</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>187</td>
+      <td>110.81</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>211</td>
+      <td>108.77</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>522</td>
+      <td>102.80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>526</td>
+      <td>101.78</td>
+    </tr>
+  </tbody>
+</table>
+
+`Hints`:
+
+- Use the payment table.
+- Remember to use WHERE to first filter based on the staff_id, then use the GROUP BY clause.
+
+`Solution`:
+
+```sql
+SELECT customer_id, SUM(amount) FROM payment
+WHERE staff_id = 2
+GROUP BY customer_id
+HAVING SUM(amount) > 100;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>148</td>
+      <td>110.78</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>187</td>
+      <td>110.81</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>211</td>
+      <td>108.77</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>522</td>
+      <td>102.80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>526</td>
+      <td>101.78</td>
+    </tr>
+  </tbody>
+</table>

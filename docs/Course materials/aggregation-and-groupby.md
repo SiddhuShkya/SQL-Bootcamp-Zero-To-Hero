@@ -598,3 +598,255 @@ ORDER BY DATE(payment_date);
 
 > [!IMPORTANT]
 > The **DATE()** function extracts only the day portion of the timestamp information. We need to do this beacause the timestamp column has values down to the sub seconds.
+
+--- 
+
+### 3. HAVING
+
+> Explore the `payment` table.
+
+```sql
+SELECT * FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> Try running the below query:
+
+```sql
+SELECT customer_id, SUM(amount) FROM payment
+WHERE SUM(amount) > 100
+GROUP BY customer_id;
+```
+```text
+ERROR:  aggregate functions are not allowed in WHERE
+LINE 2: WHERE SUM(amount) > 100
+              ^ 
+SQL state: 42803
+Character: 52
+```
+
+> The above query will show you an error, because the SUM(amount) cannot happen until after the group by is called.
+
+> Try running the below query:
+
+```sql
+SELECT customer_id, SUM(amount) FROM payment
+GROUP BY customer_id
+HAVING SUM(amount) > 100;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>SUM(amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>114.70</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>123.74</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>130.76</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>134.65</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7</td>
+      <td>130.72</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!IMPORTANT]
+> **HAVING** is used to filter grouped results after the **GROUP BY** clause has been applied.
+
+> Explore the `customer` table.
+
+```sql
+SELECT * FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find number of customers per store. Only show the stores which have more than 300 customers.
+
+```sql
+SELECT store_id, COUNT(store_id) FROM customer
+GROUP BY store_id
+HAVING COUNT(store_id) > 300;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>store_id</th>
+      <th>COUNT(store_id)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>326</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+# <div align="center">Thank You for Going Through This Guide! 🙏✨</div>
