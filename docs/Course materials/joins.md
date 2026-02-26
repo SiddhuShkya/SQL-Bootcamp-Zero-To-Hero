@@ -232,7 +232,7 @@ SQL state: 42703
 Character: 89
 ```
 
-> [!ERROR]
+> [!IMPORTANT]
 > You get an error similar to the above one, this is because total_spent is only going to get exist at the very end of our output. Therefore you cannot use alias with an **WHERE** or **HAVING** clause for filtering. 
 
 > You can use the column name or the function to use filter.
