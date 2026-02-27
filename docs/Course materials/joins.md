@@ -285,4 +285,346 @@ HAVING SUM(amount) > 100;
 
 ---
 
-### 2. JOINs
+### 2. INNER JOIN
+
+> View `customer` and `payment` table.
+
+```sql
+SELECT * FROM 
+customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT * FROM 
+payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> View the customer email associated with specific payment.
+
+```sql
+SELECT * FROM payment
+INNER JOIN customer
+ON payment.customer_id = customer.customer_id;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+      <td>341</td>
+      <td>1</td>
+      <td>Peter</td>
+      <td>Menard</td>
+      <td>peter.menard@sakilacustomer.org</td>
+      <td>346</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+      <td>341</td>
+      <td>1</td>
+      <td>Peter</td>
+      <td>Menard</td>
+      <td>peter.menard@sakilacustomer.org</td>
+      <td>346</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+      <td>341</td>
+      <td>1</td>
+      <td>Peter</td>
+      <td>Menard</td>
+      <td>peter.menard@sakilacustomer.org</td>
+      <td>346</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+      <td>341</td>
+      <td>1</td>
+      <td>Peter</td>
+      <td>Menard</td>
+      <td>peter.menard@sakilacustomer.org</td>
+      <td>346</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+      <td>341</td>
+      <td>1</td>
+      <td>Peter</td>
+      <td>Menard</td>
+      <td>peter.menard@sakilacustomer.org</td>
+      <td>346</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!IMPORTANT]
+> Since, we are using **INNER JOIN** it will return only the records that exists in both `payment` and `customer` table. Therefore, the result won't have the record of a customer who hasn't made any sort of payment.
+
+> View only the specific columns: payment_id, customer_id, first_name
+
+```sql
+SELECT payment_id, payment.customer_id, first_name
+FROM payment
+INNER JOIN customer
+ON payment.customer_id = customer.customer_id;
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>first_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>Peter</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>Peter</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>Peter</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>Peter</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>Peter</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> The payment_id is unique to `payment` table and the first_name is unique to `customer` table. However the customer_id exists in both table, so we need to clarify which customer_id we are refering to (**payment.customer_id**: takes customer_id of `payment` table). You can also clarify the payment_id and first_name using **payment.payment_id** and **customer.first_name** respectively. 
