@@ -582,7 +582,6 @@ FROM payment
 INNER JOIN customer
 ON payment.customer_id = customer.customer_id;
 ```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -628,3 +627,380 @@ ON payment.customer_id = customer.customer_id;
 
 > [!NOTE]
 > The payment_id is unique to `payment` table and the first_name is unique to `customer` table. However the customer_id exists in both table, so we need to clarify which customer_id we are refering to (**payment.customer_id**: takes customer_id of `payment` table). You can also clarify the payment_id and first_name using **payment.payment_id** and **customer.first_name** respectively. 
+
+---
+
+### 3. OUTER JOIN
+
+There are few different types of OUTER JOINs, which allows us to deal with values only present in one of the tables being joined. They are much more complex JOINs than the simpler INNER JOINs.
+
+*There are mainly 3 types of outer joins:*
+
+#### 3.1 FULL OUTER JOIN
+
+> View `customer` and `payment` table.
+
+```sql
+SELECT * FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT * FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> View all the payments that are associated with the current customer and all the customers that are associated with an historical payment.
+
+```sql
+SELECT * FROM customer
+FULL OUTER JOIN payment
+  ON customer.customer_id = payment.customer_id;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+      <td>18202</td>
+      <td>524</td>
+      <td>1</td>
+      <td>1306</td>
+      <td>1.99</td>
+      <td>2007-02-15 08:27:50.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+      <td>18203</td>
+      <td>524</td>
+      <td>2</td>
+      <td>1651</td>
+      <td>4.99</td>
+      <td>2007-02-16 07:53:04.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+      <td>18204</td>
+      <td>524</td>
+      <td>2</td>
+      <td>3454</td>
+      <td>2.99</td>
+      <td>2007-02-21 19:40:39.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+      <td>21950</td>
+      <td>524</td>
+      <td>2</td>
+      <td>13626</td>
+      <td>2.99</td>
+      <td>2007-03-20 05:23:50.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>1</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+      <td>21951</td>
+      <td>524</td>
+      <td>2</td>
+      <td>14046</td>
+      <td>4.99</td>
+      <td>2007-03-20 20:21:47.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+*The query simply returns all the rows from payment and customer table joined together*
+
+> Filter the above result so that the information is unique to payment, not associative customer or unique to customer.
+
+```sql
+SELECT * FROM customer
+FULL OUTER JOIN payment
+  ON customer.customer_id = payment.customer_id
+WHERE customer.customer_id IS NULL
+OR payment.payment_id IS NULL;
+```
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+> [!NOTE]
+> The empty rows states that, we dont have any payment information not associated with some customer and we also, dont have any customer information, who has never made a payment.
+
+> Try verifying the result using the **DISTINCT** keyword. *Hint: The unique number of customer_id in the payment table must match the number of rows in the customer table*
+
+```sql
+SELECT COUNT(DISTINCT customer_id) FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(DISTINCT customer_id)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>599</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT COUNT(*) FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COUNT(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>599</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Technically, the above process doesn't fully answer the previous privacy compliance, because there could could be different ID numbers in different tables. Therefore, it doesnt fully answer the quetion.
+
+#### 3.2 LEFT OUTER JOIN
