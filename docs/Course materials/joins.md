@@ -932,7 +932,6 @@ FULL OUTER JOIN payment
 WHERE customer.customer_id IS NULL
 OR payment.payment_id IS NULL;
 ```
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
