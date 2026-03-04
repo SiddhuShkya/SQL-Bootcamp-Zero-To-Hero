@@ -1,6 +1,6 @@
-##  Aggregate Functions & GROUP BY Statements 
+##  AS, JOINs & UNIONs
 
-This document contains all the sql **AS** and **JOINS** statements, we executed for this course using the postgresql and pgadmin from the dvdrental datbase.
+This document contains all the sql **AS**, **JOINs** and **UNIONs** statements, we executed for this course using the postgresql and pgadmin from the dvdrental datbase.
 
 > Open up your PgAdmin. Then connect your Local DB server and open up your Query tool from the dvdrental database
 
@@ -1289,4 +1289,159 @@ WHERE inventory.film_id IS NULL;
 
 *The above query result shows us the unique film_id and title that only exists in `film` table and not in `inventory` table* 
 
-#### 3.3 RIGHT JOIN
+#### 3.3 RIGHT OUTER JOIN
+
+A **RIGHT JOIN** is essentially the same as a **LEFT JOIN**, except the tables are switched. Therefore, this would be the same as switching the table order in a **LEFT JOIN**.
+
+> Query Example:
+
+```sql
+SELECT * FROM TableA
+RIGHT OUTER JOIN TableB
+ON TableA.col_match = TableB.col_match;
+```
+
+*The query returns back rows that can be found either exclusively in table B  or in both table A and B. It doesn’t return rows that are exclusively only found in table A.* 
+
+> [!NOTE]
+> You can use RIGHT JOIN or RIGHT OUTER JOIN interchangeably.
+
+---
+
+### 4. UNION
+
+> Explore `sales2021_q1` and `sales2021_q2` tables.
+
+```sql
+SELECT * FROM sales2021_q1;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>David</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sarah</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John</td>
+      <td>200</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT * FROM sales2021_q2;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>David</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sarah</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John</td>
+      <td>250</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Emily</td>
+      <td>280</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Michael</td>
+      <td>310</td>
+    </tr>
+  </tbody>
+</table>
+
+> Concatenate both the above tables, and order the results in descending order based on the name column.
+
+```sql
+SELECT * FROM df_table1
+UNION
+SELECT * FROM df_table2 
+ORDER BY name DESC
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sarah</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sarah</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Michael</td>
+      <td>310</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>John</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>John</td>
+      <td>250</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Emily</td>
+      <td>280</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>David</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>David</td>
+      <td>200</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+# <div align="center">Thank You for Going Through This Guide! 🙏✨</div>
