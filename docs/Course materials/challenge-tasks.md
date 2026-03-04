@@ -1328,3 +1328,260 @@ HAVING SUM(amount) > 100;
     </tr>
   </tbody>
 </table>
+
+---
+
+### 8. JOIN
+
+`Challenge 1`: 
+
+- California sales tax laws have changed and we need to alert our customers to this through email.
+
+- What are the emails of the customers who live in California?
+
+`Expected Results`:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>email</th>
+      <th>district</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>betty.white@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>alice.stewart@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rosa.reynolds@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>renee.lane@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>kristin.johnston@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>cassandra.walters@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>jacob.lance@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>rene.mcalister@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+  </tbody>
+</table>
+
+`Hints`:
+
+- Use the address and customer tables.
+- Look at the district column.
+
+`Solution`:
+
+```sql
+SELECT email, district FROM customer
+INNER JOIN address 
+	ON customer.address_id = address.address_id
+WHERE address.district = 'California';
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>email</th>
+      <th>district</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>betty.white@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>alice.stewart@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rosa.reynolds@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>renee.lane@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>kristin.johnston@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>cassandra.walters@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>jacob.lance@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>rene.mcalister@sakilacustomer.org</td>
+      <td>California</td>
+    </tr>
+  </tbody>
+</table>
+
+`Challenge 2`: 
+
+- A customer walks in and is a huge fan of the actor "Nick Wahlberg" and wants to know which movies he is in.
+
+- Get a list of all movies "Nick Wahlberg" has been in.
+
+`Expected Results`:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Adaptation Holes</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Apache Divine</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Baby Hall</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Bull Shawshank</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Chainsaw Uptown</td>
+    </tr>
+  </tbody>
+</table>
+
+`Hints`:
+
+- You will need to do 2 JOINs in a row to do this in a single query.
+- Try using the online documentation or a simple google search to see how this is done.
+- Tables to use: actor, film, film_actor
+
+`Solution`:
+
+```sql
+SELECT first_name, last_name, film.title
+FROM actor
+INNER JOIN film_actor
+  ON actor.actor_id = film_actor.actor_id
+INNER JOIN film
+  ON film_actor.film_id = film.film_id
+WHERE first_name = 'Nick' AND last_name = 'Wahlberg'; 
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Adaptation Holes</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Apache Divine</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Baby Hall</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Bull Shawshank</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Nick</td>
+      <td>Wahlberg</td>
+      <td>Chainsaw Uptown</td>
+    </tr>
+  </tbody>
+</table>
+
+`Visual Representation`:
+
+```
+actor → film_actor → film
+  actor_id      film_id
+```
