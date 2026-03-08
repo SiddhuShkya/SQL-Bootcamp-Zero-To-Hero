@@ -1585,3 +1585,114 @@ WHERE first_name = 'Nick' AND last_name = 'Wahlberg';
 actor → film_actor → film
   actor_id      film_id
 ```
+
+---
+
+### 9. Timestamps & Extract
+
+`Challenge 1`: 
+
+- During which months did payments occur?
+- Format your answer to return back the full month name.
+
+`Expected Results`:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>to_char</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MARCH</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MAY</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>FEBRUARY</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>APRIL</td>
+    </tr>
+  </tbody>
+</table>
+
+`Hints`:
+
+- You do not need to use EXTRACT for this query.
+
+`Solution`:
+
+```sql
+SELECT DISTINCT TO_CHAR(payment_date, 'MONTH') 
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>to_char</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MARCH</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MAY</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>FEBRUARY</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>APRIL</td>
+    </tr>
+  </tbody>
+</table>
+
+`Challenge 2`:
+
+- How many payments occured in Monday?
+
+`Expected Results`: 2948
+
+`Hints`: 
+
+- Use EXTRACT
+- Review the **dow** keyword
+- PostregSQL considers Sunday the start of a wee (indexed at 0).
+
+`Solution`:
+
+```sql
+SELECT COUNT(*)
+FROM payment
+WHERE EXTRACT(dow FROM payment_date) = 1;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2948</td>
+    </tr>
+  </tbody>
+</table>
+
