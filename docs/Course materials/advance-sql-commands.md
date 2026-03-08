@@ -225,3 +225,376 @@ SELECT CURRENT_DATE;
   </tbody>
 </table>
 
+> View the `payment` table.
+
+```sql
+SELECT * FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>payment_id</th>
+      <th>customer_id</th>
+      <th>staff_id</th>
+      <th>rental_id</th>
+      <th>amount</th>
+      <th>payment_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17503</td>
+      <td>341</td>
+      <td>2</td>
+      <td>1520</td>
+      <td>7.99</td>
+      <td>2007-02-15 22:25:46.996577</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17504</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1778</td>
+      <td>1.99</td>
+      <td>2007-02-16 17:23:14.996577</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17505</td>
+      <td>341</td>
+      <td>1</td>
+      <td>1849</td>
+      <td>7.99</td>
+      <td>2007-02-16 22:41:45.996577</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17506</td>
+      <td>341</td>
+      <td>2</td>
+      <td>2829</td>
+      <td>2.99</td>
+      <td>2007-02-19 19:39:56.996577</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17507</td>
+      <td>341</td>
+      <td>2</td>
+      <td>3130</td>
+      <td>7.99</td>
+      <td>2007-02-20 17:31:48.996577</td>
+    </tr>
+  </tbody>
+</table>
+
+> Extract **YEAR** FROM payment_date.
+
+```sql
+SELECT EXTRACT(YEAR FROM payment_date) AS my_year
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>my_year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2007</td>
+    </tr>
+  </tbody>
+</table>
+
+> Extract **MONTH** FROM payment_date.
+
+```sql
+SELECT EXTRACT(MONTH FROM payment_date) AS pay_month
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pay_month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+
+> Extract **QUARTER** of the month FROM payment_date.
+
+```sql
+SELECT EXTRACT(QUARTER FROM payment_date) AS pay_month
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pay_month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> A quarter represents a 3-month period in a year.
+
+| Quarter | Months    |
+| ------- | --------- |
+| 1       | Jan – Mar |
+| 2       | Apr – Jun |
+| 3       | Jul – Sep |
+| 4       | Oct – Dec |
+
+> Check how old the timestamp date was in regards to the current moment/date.
+
+```sql
+SELECT AGE(payment_date) 
+FROM payment;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6953 days 01:34:13.003423</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6952 days 06:36:45.003423</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6952 days 01:18:14.003423</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6949 days 04:20:03.003423</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6948 days 06:28:11.003423</td>
+    </tr>
+  </tbody>
+</table>
+
+> Convert the timestamp datatype of the payment_date column.
+
+*For Reference : [Functions Formatting](https://www.postgresql.org/docs/12/functions-formatting.html)*
+
+```sql
+SELECT TO_CHAR(payment_date, 'MONTH -> YYYY')
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>to_char</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>FEBRUARY&nbsp;&nbsp;-&gt; 2007</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>FEBRUARY&nbsp;&nbsp;-&gt; 2007</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>FEBRUARY&nbsp;&nbsp;-&gt; 2007</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>FEBRUARY&nbsp;&nbsp;-&gt; 2007</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>FEBRUARY&nbsp;&nbsp;-&gt; 2007</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT TO_CHAR(payment_date, 'mon/dd/YYYY')
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>to_char</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>feb/15/2007</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>feb/16/2007</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>feb/16/2007</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>feb/19/2007</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>feb/20/2007</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT TO_CHAR(payment_date, 'MM/dd/YYYY')
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>to_char</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>02/15/2007</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>02/16/2007</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>02/16/2007</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>02/19/2007</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>02/20/2007</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT TO_CHAR(payment_date, 'YYYY-MM-DD')
+FROM payment;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>to_char</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2007-02-15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007-02-16</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2007-02-16</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2007-02-19</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2007-02-20</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> This is a note in regards to the next lecture, we've gotten a lot of questions of why TO_CHAR "doesn't work" for one of the assessment questions. It actually does work, but you need to realize certain codes are "blank padded to 9 characters", which means instead of returning 'Monday' it returns 'Monday   ' with extra spaces to fill up at least 9 spaces.
+
+> Source: https://www.postgresql.org/docs/15/functions-formatting.html

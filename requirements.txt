@@ -1,3 +1,4 @@
 ipykernel
 pandas
 pandasql
+psycopg2-binary
