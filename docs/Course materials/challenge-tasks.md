@@ -1671,7 +1671,7 @@ FROM payment;
 
 - Use EXTRACT
 - Review the **dow** keyword
-- PostregSQL considers Sunday the start of a wee (indexed at 0).
+- PostregSQL considers Sunday the start of a week (indexed at 0).
 
 `Solution`:
 

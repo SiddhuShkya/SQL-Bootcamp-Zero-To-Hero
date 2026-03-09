@@ -452,7 +452,7 @@ FROM payment;
 
 > Convert the timestamp datatype of the payment_date column.
 
-*For Reference : [Functions Formatting](https://www.postgresql.org/docs/12/functions-formatting.html)*
+Source: [Functions Formatting](https://www.postgresql.org/docs/15/functions-formatting.html)
 
 ```sql
 SELECT TO_CHAR(payment_date, 'MONTH -> YYYY')
@@ -597,4 +597,190 @@ FROM payment;
 > [!NOTE]
 > This is a note in regards to the next lecture, we've gotten a lot of questions of why TO_CHAR "doesn't work" for one of the assessment questions. It actually does work, but you need to realize certain codes are "blank padded to 9 characters", which means instead of returning 'Monday' it returns 'Monday   ' with extra spaces to fill up at least 9 spaces.
 
-> Source: https://www.postgresql.org/docs/15/functions-formatting.html
+---
+
+### 2. Mathematical Functions & Operators
+
+Source : [Mathematical Functionsn & Operators](https://www.postgresql.org/docs/current/functions-math.html)
+
+> View the `film` table.
+
+```sql
+SELECT * FROM film;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>film_id</th>
+      <th>title</th>
+      <th>description</th>
+      <th>release_year</th>
+      <th>language_id</th>
+      <th>rental_duration</th>
+      <th>rental_rate</th>
+      <th>length</th>
+      <th>replacement_cost</th>
+      <th>rating</th>
+      <th>last_update</th>
+      <th>special_features</th>
+      <th>fulltext</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>133</td>
+      <td>Chamber Italian</td>
+      <td>A Fateful Reflection of a Moose And a Husband ...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>7</td>
+      <td>4.99</td>
+      <td>117</td>
+      <td>14.99</td>
+      <td>NC-17</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Trailers]</td>
+      <td>'chamber':1 'fate':4 'husband':11 'italian':2 ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>384</td>
+      <td>Grosse Wonderful</td>
+      <td>A Epic Drama of a Cat And a Explorer who must ...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>5</td>
+      <td>4.99</td>
+      <td>49</td>
+      <td>19.99</td>
+      <td>R</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Behind the Scenes]</td>
+      <td>'australia':18 'cat':8 'drama':5 'epic':4 'exp...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8</td>
+      <td>Airport Pollock</td>
+      <td>A Epic Tale of a Moose And a Girl who must Con...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>6</td>
+      <td>4.99</td>
+      <td>54</td>
+      <td>15.99</td>
+      <td>R</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Trailers]</td>
+      <td>'airport':1 'ancient':18 'confront':14 'epic':...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>98</td>
+      <td>Bright Encounters</td>
+      <td>A Fateful Yarn of a Lumberjack And a Feminist ...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4.99</td>
+      <td>73</td>
+      <td>12.99</td>
+      <td>PG-13</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Trailers]</td>
+      <td>'boat':20 'bright':1 'conquer':14 'encount':2 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>Academy Dinosaur</td>
+      <td>A Epic Drama of a Feminist And a Mad Scientist...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>6</td>
+      <td>0.99</td>
+      <td>86</td>
+      <td>20.99</td>
+      <td>PG</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Deleted Scenes, Behind the Scenes]</td>
+      <td>'academi':1 'battl':15 'canadian':20 'dinosaur...</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find out what percentage of the replacement_cost is a rental rate.
+
+```sql
+SELECT ROUND(rental_rate/replacement_cost, 2) * 100 AS percent_cost
+FROM film;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>percent_cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>33.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>31.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>38.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.00</td>
+    </tr>
+  </tbody>
+</table>
+
+> Put some small deposits down of 10% of the replacement_cost.
+
+```sql
+SELECT 0.1 * replacement_cost AS deposit
+FROM film;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>deposit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.499</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.999</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.599</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.299</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.099</td>
+    </tr>
+  </tbody>
+</table>
