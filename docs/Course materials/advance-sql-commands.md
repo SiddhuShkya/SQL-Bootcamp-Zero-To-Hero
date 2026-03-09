@@ -452,7 +452,7 @@ FROM payment;
 
 > Convert the timestamp datatype of the payment_date column.
 
-Source: [Functions Formatting](https://www.postgresql.org/docs/15/functions-formatting.html)
+Source: [Functions Formatting Documentation](https://www.postgresql.org/docs/15/functions-formatting.html)
 
 ```sql
 SELECT TO_CHAR(payment_date, 'MONTH -> YYYY')
@@ -601,7 +601,7 @@ FROM payment;
 
 ### 2. Mathematical Functions & Operators
 
-Source : [Mathematical Functionsn & Operators](https://www.postgresql.org/docs/current/functions-math.html)
+Source : [Mathematical Function Documentation](https://www.postgresql.org/docs/current/functions-math.html)
 
 > View the `film` table.
 
@@ -781,6 +781,297 @@ FROM film;
     <tr>
       <th>4</th>
       <td>2.099</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 3. String Functions & Operators
+
+Source: [String Functions Documentation](https://www.postgresql.org/docs/current/functions-string.html)
+
+
+> View the `customer` table.
+
+```sql
+SELECT * FROM customer;
+```
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> Display the length of first_name.
+
+```sql
+SELECT first_name, LENGTH(first_name)
+FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+
+> Concatenate first_name with last_name.
+
+```sql
+SELECT first_name || last_name AS full_name
+FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>full_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>JaredEly</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MarySmith</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PatriciaJohnson</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>LindaWilliams</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BarbaraJones</td>
+    </tr>
+  </tbody>
+</table>
+
+> Add space between first_name and last_name.
+
+```sql
+SELECT first_name || ' ' || last_name AS full_name
+FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>full_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared Ely</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary Smith</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia Johnson</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda Williams</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara Jones</td>
+    </tr>
+  </tbody>
+</table>
+
+> Uppercase the full_name
+
+```sql
+SELECT UPPER(first_name) || ' ' || UPPER(last_name) AS full_name
+FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>full_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>JARED ELY</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MARY SMITH</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PATRICIA JOHNSON</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>LINDA WILLIAMS</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BARBARA JONES</td>
+    </tr>
+  </tbody>
+</table>
+
+> Create a new mail for each customer.
+
+Mail Example : Siddhartha Shakya -> s.shakya@wlv.ac.uk
+
+```sql
+SELECT LOWER(LEFT(first_name, 1)) || '.' || LOWER(last_name) || '@wlv.ac.uk' AS custom_mails
+FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>custom_mails</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>j.ely@wlv.ac.uk</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>m.smith@wlv.ac.uk</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p.johnson@wlv.ac.uk</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>l.williams@wlv.ac.uk</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>b.jones@wlv.ac.uk</td>
     </tr>
   </tbody>
 </table>
