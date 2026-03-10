@@ -1075,3 +1075,391 @@ FROM customer;
     </tr>
   </tbody>
 </table>
+
+---
+
+### 4. SubQuery & Exists
+
+> View the `film` rate.
+
+```sql
+SELECT * FROM film;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>film_id</th>
+      <th>title</th>
+      <th>description</th>
+      <th>release_year</th>
+      <th>language_id</th>
+      <th>rental_duration</th>
+      <th>rental_rate</th>
+      <th>length</th>
+      <th>replacement_cost</th>
+      <th>rating</th>
+      <th>last_update</th>
+      <th>special_features</th>
+      <th>fulltext</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>133</td>
+      <td>Chamber Italian</td>
+      <td>A Fateful Reflection of a Moose And a Husband ...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>7</td>
+      <td>4.99</td>
+      <td>117</td>
+      <td>14.99</td>
+      <td>NC-17</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Trailers]</td>
+      <td>'chamber':1 'fate':4 'husband':11 'italian':2 ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>384</td>
+      <td>Grosse Wonderful</td>
+      <td>A Epic Drama of a Cat And a Explorer who must ...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>5</td>
+      <td>4.99</td>
+      <td>49</td>
+      <td>19.99</td>
+      <td>R</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Behind the Scenes]</td>
+      <td>'australia':18 'cat':8 'drama':5 'epic':4 'exp...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8</td>
+      <td>Airport Pollock</td>
+      <td>A Epic Tale of a Moose And a Girl who must Con...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>6</td>
+      <td>4.99</td>
+      <td>54</td>
+      <td>15.99</td>
+      <td>R</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Trailers]</td>
+      <td>'airport':1 'ancient':18 'confront':14 'epic':...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>98</td>
+      <td>Bright Encounters</td>
+      <td>A Fateful Yarn of a Lumberjack And a Feminist ...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4.99</td>
+      <td>73</td>
+      <td>12.99</td>
+      <td>PG-13</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Trailers]</td>
+      <td>'boat':20 'bright':1 'conquer':14 'encount':2 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>Academy Dinosaur</td>
+      <td>A Epic Drama of a Feminist And a Mad Scientist...</td>
+      <td>2006</td>
+      <td>1</td>
+      <td>6</td>
+      <td>0.99</td>
+      <td>86</td>
+      <td>20.99</td>
+      <td>PG</td>
+      <td>2013-05-26 14:50:58.951</td>
+      <td>[Deleted Scenes, Behind the Scenes]</td>
+      <td>'academi':1 'battl':15 'canadian':20 'dinosaur...</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find the title whose rental_rate is greater than average renta_rate.
+
+```sql
+SELECT title, rental_rate
+FROM film
+WHERE rental_rate > (
+  SELECT AVG(rental_rate)
+  FROM film
+);
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>rental_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Chamber Italian</td>
+      <td>4.99</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Grosse Wonderful</td>
+      <td>4.99</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Airport Pollock</td>
+      <td>4.99</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bright Encounters</td>
+      <td>4.99</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ace Goldfinger</td>
+      <td>4.99</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> The particular subquery "**SELECT AVG(rental_rate) FROM film**" returns a single value making it possible to use comparison operator against it.
+
+*If the subquery returns multiple values, then you will have to use the **IN** operator.*
+
+> View the `rental` & `inventory` table.
+
+```sql
+SELECT * FROM rental;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rental_id</th>
+      <th>rental_date</th>
+      <th>inventory_id</th>
+      <th>customer_id</th>
+      <th>return_date</th>
+      <th>staff_id</th>
+      <th>last_update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>2005-05-24 22:54:33</td>
+      <td>1525</td>
+      <td>459</td>
+      <td>2005-05-28 19:40:33</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>2005-05-24 23:03:39</td>
+      <td>1711</td>
+      <td>408</td>
+      <td>2005-06-01 22:12:39</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>2005-05-24 23:04:41</td>
+      <td>2452</td>
+      <td>333</td>
+      <td>2005-06-03 01:43:41</td>
+      <td>2</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>2005-05-24 23:05:21</td>
+      <td>2079</td>
+      <td>222</td>
+      <td>2005-06-02 04:33:21</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>2005-05-24 23:08:07</td>
+      <td>2792</td>
+      <td>549</td>
+      <td>2005-05-27 01:32:07</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT * FROM inventory;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>inventory_id</th>
+      <th>film_id</th>
+      <th>store_id</th>
+      <th>last_update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2006-02-15 10:09:17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2006-02-15 10:09:17</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2006-02-15 10:09:17</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2006-02-15 10:09:17</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2006-02-15 10:09:17</td>
+    </tr>
+  </tbody>
+</table>
+
+> Grab the film titles, that have been returned between a certain set of dates (May 29, 2005 & May 30, 2005).
+
+```sql
+SELECT film_id, title
+FROM film 
+WHERE film_id IN
+(
+  SELECT inventory.film_id 
+  FROM rental
+  INNER JOIN inventory ON
+    inventory.inventory_id = rental.inventory_id
+  WHERE rental.return_date BETWEEN '2005-05-29' AND '2005-05-30'
+)
+ORDER BY title;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>film_id</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>15</td>
+      <td>Alien Center</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>19</td>
+      <td>Amadeus Holy</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>45</td>
+      <td>Attraction Newton</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50</td>
+      <td>Baked Cleopatra</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>52</td>
+      <td>Ballroom Mockingbird</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find customers who have atleast one payment, whose amount is greater than 11.
+
+```sql
+SELECT first_name, last_name 
+FROM customer AS c
+WHERE EXISTS (
+  SELECT * FROM payment AS p
+  WHERE p.customer_id = c.customer_id
+    AND p.amount > 11
+)
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Karen</td>
+      <td>Jackson</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Victoria</td>
+      <td>Gibson</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Vanessa</td>
+      <td>Sims</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Rosemary</td>
+      <td>Schmidt</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tanya</td>
+      <td>Gilbert</td>
+    </tr>
+  </tbody>
+</table>
