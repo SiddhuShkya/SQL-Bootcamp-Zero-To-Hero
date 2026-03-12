@@ -1466,7 +1466,7 @@ WHERE EXISTS (
 
 ---
 
-### 4. Self Join
+### 5. Self Join
 
 > View the `film` table.
 
