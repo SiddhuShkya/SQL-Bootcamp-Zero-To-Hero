@@ -17,6 +17,8 @@ When creating a database and table, take your time to plan for long term storage
 
 ---
 
+### 1. Primary & Foreign Keys
+
 > View all from `payment` table.
 
 ```sql
@@ -120,4 +122,98 @@ Servers → Local DB (Your Server Name) → databases → dvdrental → schemas 
 
 *You should see a table named columns with headings : Local, Referenced, Referenced Table*
 
-> Refererence Table has the value **public.customer**, meaning that the foreign key customer_id of the `payment` table is referencing to the primary key of the `customer` table.
+> Reference Table has the value **public.customer**, meaning that the foreign key customer_id of the `payment` table is referencing to the primary key of the `customer` table.
+
+---
+
+### 2. CREATE
+
+2.1 Create new database using the pgAdmin.
+
+<img src="../../images/pgadmin-new-database.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+2.2 Name the database as **learning**.
+
+<img src="../../images/learning-database.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+2.3 Open up the query tool by right clicking the newly created database.
+
+<img src="../../images/learning-query-tool.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+
+*You have successfully created a new database..*
+
+> Create an `account` table.
+
+```sql
+CREATE TABLE account (
+  user_id SERIAL PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(50) NOT NULL,
+  email VARCHAR(250) UNIQUE NOT NULL,
+  create_on TIMESTAMP NOT NULL,
+  last_login TIMESTAMP
+);
+```
+
+```text
+CREATE TABLE
+
+Query returned successfully in 52 msec.
+```
+
+
+> [!NOTE]
+> Notice that there is no constraint set for the last column (last_login), because it is not necessary that a user that created an account must also have a last login date. Also keep in mind that, you can only run this query once.
+
+> Execute the query again and you will see the below result.
+
+```text
+ERROR:  relation "account" already exists 
+
+SQL state: 42P07
+```
+
+You can also view the recently created by expanding the left side server panel along with the constraints.
+
+<img src="../../images/account-table.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Create `job` table.
+
+```sql
+CREATE TABLE job (
+  job_id SERIAL PRIMARY KEY,
+  job_name VARCHAR(100) UNIQUE NOT NULL
+);
+```
+
+```text
+CREATE TABLE
+
+Query returned successfully in 42 msec.
+```
+
+> Create `account_job` table, which references both `account` & `job` table.
+
+```sql
+CREATE TABLE account_job(
+  user_id INTEGER REFERENCES account(user_id),
+  job_id INTEGER REFERENCES job(job_id),
+  hire_date TIMESTAMP
+);
+```
+
+```text
+CREATE TABLE
+
+Query returned successfully in 43 msec.
+```
+
