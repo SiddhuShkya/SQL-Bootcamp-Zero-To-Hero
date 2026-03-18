@@ -217,3 +217,187 @@ CREATE TABLE
 Query returned successfully in 43 msec.
 ```
 
+---
+
+### 3. INSERT
+
+> Explore the `account` table.
+
+```sql
+SELECT * FROM account;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>username</th>
+      <th>password</th>
+      <th>email</th>
+      <th>create_on</th>
+      <th>last_login</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+*There are only columns and no records/rows because we haven't insert any data prior to creating this table.*
+
+> Insert some rows into `account` table.
+
+```sql
+INSERT INTO account (username, password, email, created_on)
+VALUES
+(
+  'siddhu', 'password', 'siddhu@gmail.com', CURRENT_TIMESTAMP
+)
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 42 msec.
+```
+
+> View the inserted `account` table.
+
+```sql
+SELECT * FROM account;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>username</th>
+      <th>password</th>
+      <th>email</th>
+      <th>create_on</th>
+      <th>last_login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>siddhu</td>
+      <td>password</td>
+      <td>siddhu@gmail.com</td>
+      <td>2026-03-18 17:06:23.049040</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+> Insert some rows into `job` table.
+
+```sql
+INSERT INTO job (job_name)
+VALUES 
+('Astronaut');
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 60 msec.
+```
+```sql
+INSERT INTO job (job_name)
+VALUES 
+('President');
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 60 msec.
+```
+
+> View the inserted `job` table.
+
+```sql
+SELECT * FROM job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>job_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Astronaut</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>President</td>
+    </tr>
+  </tbody>
+</table>
+
+> Insert some rows into `account_job` table.
+
+```sql
+INSERT INTO account_job(user_id, job_id, hire_date)
+VALUES 
+(
+  1, 1, CURRENT_TIMESTAMP
+);
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 44 msec.
+```
+
+> View the inserted `account_job` table.
+
+```sql
+SELECT * FROM account_job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>job_id</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>2026-03-18 17:20:29.290135</td>
+    </tr>
+  </tbody>
+</table>
+
+> Try inserting a new row in the `account_job` table with an non existent user_id and job_id.
+
+```sql
+INSERT INTO account_job(user_id, job_id, hire_date)
+VALUES 
+(
+  10, 12, CURRENT_TIMESTAMP
+);
+```
+```text
+ERROR:  insert or update on table "account_job" violates foreign key constraint "account_job_user_id_fkey"
+Key (user_id)=(10) is not present in table "account". 
+
+SQL state: 23503
+Detail: Key (user_id)=(10) is not present in table "account".
+```
+
+> [!IMPORTANT]
+> The above query throws an error because it violates the forign key constraint. Therefore, we have to make sure that when we are inserting something that has a foreign key constraint, it should also actually exist in the other tables.
+
+---
+
+### 4. UPDATE
