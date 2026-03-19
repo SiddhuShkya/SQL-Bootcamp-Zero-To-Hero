@@ -43,7 +43,7 @@ This document contains all the sql **GROUP BY** statements and aggregate functio
 
 > View all the columns of `film` table.
 
-```sql
+```postgresql
 SELECT * FROM film
 LIMIT 3;
 ```
@@ -120,7 +120,7 @@ LIMIT 3;
 
 > View the minimum replacement_cost.
 
-```sql
+```postgresql
 SELECT MIN(replacement_cost) FROM film;
 ```
 <table border="1" class="dataframe">
@@ -140,7 +140,7 @@ SELECT MIN(replacement_cost) FROM film;
 
 > View the maximum replacement_cost.
 
-```sql
+```postgresql
 SELECT MAX(replacement_cost) FROM film;
 ```
 <table border="1" class="dataframe">
@@ -160,7 +160,7 @@ SELECT MAX(replacement_cost) FROM film;
 
 > View the maximum replacement_cost and film_id.
 
-```sql
+```postgresql
 SELECT MAX(replacement_cost), film_id FROM film;
 ```
 ```text
@@ -180,7 +180,7 @@ Character: 31
 
 > View the minimum and maximum replacement_cost.
 
-```sql
+```postgresql
 SELECT MAX(replacement_cost), MIN(replacement_cost)
 FROM film;
 ```
@@ -206,7 +206,7 @@ FROM film;
 
 > View the number of rows in the `film` table.
 
-```sql
+```postgresql
 SELECT COUNT(*)
 FROM film;
 ```
@@ -227,7 +227,7 @@ FROM film;
 
 > View the mean/average replacement_cost.
 
-```sql
+```postgresql
 SELECT AVG(replacement_cost) FROM film;
 ```
 <table border="1" class="dataframe">
@@ -250,7 +250,7 @@ SELECT AVG(replacement_cost) FROM film;
 
 >  View the mean/average replacement_cost rounded upto 2 decimal places.
 
-```sql
+```postgresql
 SELECT ROUND(AVG(replacement_cost), 2) FROM film;
 ```
 <table border="1" class="dataframe">
@@ -270,7 +270,7 @@ SELECT ROUND(AVG(replacement_cost), 2) FROM film;
 
 > View the total replacement_cost from the `film` table.
 
-```sql
+```postgresql
 SELECT SUM(replacement_cost)
 FROM film;
 ```
@@ -297,7 +297,7 @@ FROM film;
 
 > Explore the `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -363,7 +363,7 @@ SELECT * FROM payment;
 
 > Group the actual customer_id.
 
-```sql
+```postgresql
 SELECT customer_id FROM payment 
 GROUP BY customer_id;
 ```
@@ -403,7 +403,7 @@ GROUP BY customer_id;
 
 > Find out which customer is spending the most money in total.
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) FROM payment
 GROUP BY customer_id
 ORDER BY SUM(amount) DESC;
@@ -447,7 +447,7 @@ ORDER BY SUM(amount) DESC;
 
 > Additionally, also find out how many transactions did each customer made.
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount), COUNT(amount) FROM payment
 GROUP BY customer_id
 ORDER BY SUM(amount) DESC;
@@ -497,7 +497,7 @@ ORDER BY SUM(amount) DESC;
 
 > Find out the total amount spent per staff per customer.
 
-```sql
+```postgresql
 SELECT 
   staff_id,
   customer_id,
@@ -551,7 +551,7 @@ ORDER BY staff_id;
 
 > Find out how many transactions are being processed each day.
 
-```sql
+```postgresql
 SELECT 
 	DATE(payment_date), 
 	SUM(amount)
@@ -605,7 +605,7 @@ ORDER BY DATE(payment_date);
 
 > Explore the `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -671,7 +671,7 @@ SELECT * FROM payment;
 
 > Try running the below query:
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) FROM payment
 WHERE SUM(amount) > 100
 GROUP BY customer_id;
@@ -688,7 +688,7 @@ Character: 52
 
 > Try running the below query:
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) FROM payment
 GROUP BY customer_id
 HAVING SUM(amount) > 100;
@@ -735,7 +735,7 @@ HAVING SUM(amount) > 100;
 
 > Explore the `customer` table.
 
-```sql
+```postgresql
 SELECT * FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -825,7 +825,7 @@ SELECT * FROM customer;
 
 > Find number of customers per store. Only show the stores which have more than 300 customers.
 
-```sql
+```postgresql
 SELECT store_id, COUNT(store_id) FROM customer
 GROUP BY store_id
 HAVING COUNT(store_id) > 300;

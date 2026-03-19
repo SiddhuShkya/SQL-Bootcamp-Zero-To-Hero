@@ -2,7 +2,7 @@
 
 ### INSERT - Adding Data
 
-```sql
+```postgresql
 -- Insert single row
 INSERT INTO customers (first_name, last_name, email)
 VALUES ('Alice', 'Johnson', 'alice@email.com');
@@ -23,7 +23,7 @@ WHERE order_date < '2023-01-01';
 
 ### UPDATE - Modifying Data
 
-```sql
+```postgresql
 -- Update single row
 UPDATE products
 SET price = 39.99
@@ -51,7 +51,7 @@ WHERE products.id = order_items.product_id
 
 ### DELETE - Removing Data
 
-```sql
+```postgresql
 -- Delete specific rows
 DELETE FROM customers
 WHERE id = 15;
@@ -72,7 +72,7 @@ TRUNCATE TABLE temp_table;
 
 Transactions ensure data integrity.
 
-```sql
+```postgresql
 -- Start transaction
 BEGIN TRANSACTION;
 
@@ -88,7 +88,7 @@ ROLLBACK;
 ```
 
 **Example with error handling:**
-```sql
+```postgresql
 BEGIN TRANSACTION;
 
 UPDATE products SET stock_quantity = stock_quantity - 5 WHERE id = 10;

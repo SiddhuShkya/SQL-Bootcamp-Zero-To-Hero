@@ -6,7 +6,7 @@ Joins combine rows from two or more tables based on related columns.
 
 Returns only matching rows from both tables.
 
-```sql
+```postgresql
 -- Join customers with their orders
 SELECT 
     customers.first_name,
@@ -42,7 +42,7 @@ INNER JOIN products p ON oi.product_id = p.id;
 
 Returns all rows from the left table and matching rows from the right table.
 
-```sql
+```postgresql
 -- All customers and their orders (including customers with no orders)
 SELECT 
     c.first_name,
@@ -65,7 +65,7 @@ WHERE o.id IS NULL;
 
 Returns all rows from the right table and matching rows from the left table.
 
-```sql
+```postgresql
 -- All orders and customer info (including orders without customer data)
 SELECT 
     o.order_date,
@@ -80,7 +80,7 @@ RIGHT JOIN orders o ON c.id = o.customer_id;
 
 Returns all rows when there's a match in either table.
 
-```sql
+```postgresql
 -- All customers and orders (SQLite doesn't support this, but PostgreSQL/MySQL do)
 SELECT 
     c.first_name,
@@ -94,7 +94,7 @@ FULL OUTER JOIN orders o ON c.id = o.customer_id;
 
 Returns the Cartesian product of both tables.
 
-```sql
+```postgresql
 -- Every combination of customers and products
 SELECT 
     c.first_name,
@@ -107,7 +107,7 @@ CROSS JOIN products p;
 
 Join a table to itself.
 
-```sql
+```postgresql
 -- Employees and their managers (if you had an employees table)
 SELECT 
     e.first_name AS employee_name,

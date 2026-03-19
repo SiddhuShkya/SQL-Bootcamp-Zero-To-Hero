@@ -2,7 +2,7 @@
 
 Create RFM (Recency, Frequency, Monetary) analysis:
 
-```sql
+```postgresql
 WITH rfm_calc AS (
     SELECT 
         customer_id,

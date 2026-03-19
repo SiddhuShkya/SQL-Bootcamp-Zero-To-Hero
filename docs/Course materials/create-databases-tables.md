@@ -21,7 +21,7 @@ When creating a database and table, take your time to plan for long term storage
 
 > View all from `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -151,7 +151,7 @@ Servers → Local DB (Your Server Name) → databases → dvdrental → schemas 
 
 > Create an `account` table.
 
-```sql
+```postgresql
 CREATE TABLE account (
   user_id SERIAL PRIMARY KEY,
   username VARCHAR(50) UNIQUE NOT NULL,
@@ -188,7 +188,7 @@ You can also view the recently created by expanding the left side server panel a
 
 > Create `job` table.
 
-```sql
+```postgresql
 CREATE TABLE job (
   job_id SERIAL PRIMARY KEY,
   job_name VARCHAR(100) UNIQUE NOT NULL
@@ -203,7 +203,7 @@ Query returned successfully in 42 msec.
 
 > Create `account_job` table, which references both `account` & `job` table.
 
-```sql
+```postgresql
 CREATE TABLE account_job(
   user_id INTEGER REFERENCES account(user_id),
   job_id INTEGER REFERENCES job(job_id),
@@ -223,7 +223,7 @@ Query returned successfully in 43 msec.
 
 > Explore the `account` table.
 
-```sql
+```postgresql
 SELECT * FROM account;
 ```
 <table border="1" class="dataframe">
@@ -246,7 +246,7 @@ SELECT * FROM account;
 
 > Insert some rows into `account` table.
 
-```sql
+```postgresql
 INSERT INTO account (username, password, email, created_on)
 VALUES
 (
@@ -261,7 +261,7 @@ Query returned successfully in 42 msec.
 
 > View the inserted `account` table.
 
-```sql
+```postgresql
 SELECT * FROM account;
 ```
 <table border="1" class="dataframe">
@@ -291,7 +291,7 @@ SELECT * FROM account;
 
 > Insert some rows into `job` table.
 
-```sql
+```postgresql
 INSERT INTO job (job_name)
 VALUES 
 ('Astronaut');
@@ -301,7 +301,7 @@ INSERT 0 1
 
 Query returned successfully in 60 msec.
 ```
-```sql
+```postgresql
 INSERT INTO job (job_name)
 VALUES 
 ('President');
@@ -314,7 +314,7 @@ Query returned successfully in 60 msec.
 
 > View the inserted `job` table.
 
-```sql
+```postgresql
 SELECT * FROM job;
 ```
 <table border="1" class="dataframe">
@@ -341,7 +341,7 @@ SELECT * FROM job;
 
 > Insert some rows into `account_job` table.
 
-```sql
+```postgresql
 INSERT INTO account_job(user_id, job_id, hire_date)
 VALUES 
 (
@@ -356,7 +356,7 @@ Query returned successfully in 44 msec.
 
 > View the inserted `account_job` table.
 
-```sql
+```postgresql
 SELECT * FROM account_job;
 ```
 <table border="1" class="dataframe">
@@ -380,7 +380,7 @@ SELECT * FROM account_job;
 
 > Try inserting a new row in the `account_job` table with an non existent user_id and job_id.
 
-```sql
+```postgresql
 INSERT INTO account_job(user_id, job_id, hire_date)
 VALUES 
 (
@@ -404,7 +404,7 @@ Detail: Key (user_id)=(10) is not present in table "account".
 
 > Explore the `account` table.
 
-```sql
+```postgresql
 SELECT * FROM account;
 ```
 <table border="1" class="dataframe">
@@ -434,7 +434,7 @@ SELECT * FROM account;
 
 > Update the last_login column to the current timestamp.
 
-```sql
+```postgresql
 UPDATE account
 SET last_login = CURRENT_TIMESTAMP;
 ```
@@ -446,7 +446,7 @@ Query returned successfully in 41 msec.
 
 > Verify the update.
 
-```sql
+```postgresql
 SELECT * FROM account;
 ```
 <table border="1" class="dataframe">
@@ -479,7 +479,7 @@ SELECT * FROM account;
 
 > Explore the `job` table.
 
-```sql
+```postgresql
 SELECT * FROM job;
 ```
 <table border="1" class="dataframe">
@@ -506,7 +506,7 @@ SELECT * FROM job;
 
 > Explore the `account_job` table.
 
-```sql
+```postgresql
 SELECT * FROM account_job;
 ```
 <table border="1" class="dataframe">
@@ -530,7 +530,7 @@ SELECT * FROM account_job;
 
 > Update the hire_date based on another table.
 
-```sql
+```postgresql
 UPDATE account_job
 SET hire_date = account.create_on
 FROM account
@@ -544,7 +544,7 @@ Query returned successfully in 60 msec.
 
 > Verify the update.
 
-```sql
+```postgresql
 SELECT * FROM account_job;
 ```
 <table border="1" class="dataframe">
@@ -566,7 +566,7 @@ SELECT * FROM account_job;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT * FROM account;
 ```
 <table border="1" class="dataframe">

@@ -4,7 +4,7 @@
 
 CTEs make complex queries more readable.
 
-```sql
+```postgresql
 -- Basic CTE
 WITH expensive_products AS (
     SELECT product_name, price
@@ -55,7 +55,7 @@ SELECT * FROM category_tree ORDER BY level, name;
 Perform calculations across rows related to the current row.
 
 **ROW_NUMBER, RANK, DENSE_RANK:**
-```sql
+```postgresql
 -- Assign row numbers
 SELECT 
     product_name,
@@ -75,7 +75,7 @@ FROM products;
 ```
 
 **Aggregates with OVER:**
-```sql
+```postgresql
 -- Running total
 SELECT 
     order_date,
@@ -95,7 +95,7 @@ FROM orders;
 ```
 
 **LAG and LEAD:**
-```sql
+```postgresql
 -- Compare with previous row
 SELECT 
     order_date,
@@ -114,7 +114,7 @@ FROM products;
 
 ### CASE Statements
 
-```sql
+```postgresql
 -- Simple CASE
 SELECT 
     product_name,
@@ -145,7 +145,7 @@ FROM orders;
 
 ### String Functions
 
-```sql
+```postgresql
 -- Concatenation
 SELECT CONCAT(first_name, ' ', last_name) AS full_name
 FROM customers;
@@ -178,7 +178,7 @@ FROM products;
 
 ### Date Functions
 
-```sql
+```postgresql
 -- Current date/time
 SELECT 
     CURRENT_DATE,
@@ -216,7 +216,7 @@ GROUP BY DATE_TRUNC('month', order_date);
 
 ### UNION, INTERSECT, EXCEPT
 
-```sql
+```postgresql
 -- UNION (removes duplicates)
 SELECT city FROM customers
 UNION

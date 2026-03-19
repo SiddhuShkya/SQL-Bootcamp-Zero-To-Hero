@@ -43,7 +43,7 @@ This document contains all the sql statements/queries we executed for this cours
 
 > View all columns from `actor` table
 
-```sql
+```postgresql
 SELECT * FROM actor;
 ```
 <table border="1" class="dataframe">
@@ -97,7 +97,7 @@ SELECT * FROM actor;
 
 > View only one column from `actor`
 
-```sql
+```postgresql
 SELECT first_name FROM actor;
 ```
 <table border="1" class="dataframe">
@@ -133,7 +133,7 @@ SELECT first_name FROM actor;
 
 > View first_name and last_name from `actor` table
 
-```sql
+```postgresql
 SELECT first_name, last_name FROM actor;
 ```
 
@@ -181,7 +181,7 @@ SELECT first_name, last_name FROM actor;
 
 > View all columns from `film` table
 
-```sql
+```postgresql
 SELECT * FROM film;
 ```
 <table border="1" class="dataframe">
@@ -289,7 +289,7 @@ SELECT * FROM film;
 
 > View distinct/unique release_years from `film` table
 
-```sql
+```postgresql
 SELECT DISTINCT release_year FROM film;
 ```
 <table border="1" class="dataframe">
@@ -309,7 +309,7 @@ SELECT DISTINCT release_year FROM film;
 
 > You can also use parenthesis with DISTINCT
 
-```sql
+```postgresql
 SELECT DISTINCT(release_year) FROM film;
 ```
 <table border="1" class="dataframe">
@@ -329,7 +329,7 @@ SELECT DISTINCT(release_year) FROM film;
 
 > View distinct/unique rental_rate from `film` table
 
-```sql
+```postgresql
 SELECT DISTINCT(rental_rate) FROM film;
 ```
 <table border="1" class="dataframe">
@@ -359,7 +359,7 @@ SELECT DISTINCT(rental_rate) FROM film;
 
 > View all columns from `payment` table
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -425,7 +425,7 @@ SELECT * FROM payment;
 
 > View the number of rows present in `payment` table.
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -445,7 +445,7 @@ SELECT COUNT(*) FROM payment;
 
 > View the number of rows in the amount column
 
-```sql
+```postgresql
 SELECT COUNT(amount) FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -468,7 +468,7 @@ SELECT COUNT(amount) FROM payment;
 
 > View the actual number of unique amount in the amount column.
 
-```sql
+```postgresql
 SELECT COUNT(DISTINCT amount) FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -490,7 +490,7 @@ SELECT COUNT(DISTINCT amount) FROM payment;
 
 > View all columns from `customer` table.
 
-```sql
+```postgresql
 SELECT * FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -580,7 +580,7 @@ SELECT * FROM customer;
 
 > View the rows who has the first_name 'Jared'.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name = 'Jared';
 ```
@@ -619,7 +619,7 @@ WHERE first_name = 'Jared';
 
 > View all columns from `film` table.
 
-```sql
+```postgresql
 SELECT * FROM film;
 ```
 <table border="1" class="dataframe">
@@ -727,7 +727,7 @@ SELECT * FROM film;
 
 > View all the rows whose rental_rate is higher than 4$.
 
-```sql
+```postgresql
 SELECT * FROM film
 WHERE rental_rate > 4;
 ```
@@ -836,7 +836,7 @@ WHERE rental_rate > 4;
 
 > View all the rows whose rental_rate is higher than 4$ and also whose replacement_cost is more or equal to 19.99$.
 
-```sql
+```postgresql
 SELECT * FROM film
 WHERE rental_rate > 4 AND replacement_cost >= 19.99;
 ```
@@ -945,7 +945,7 @@ WHERE rental_rate > 4 AND replacement_cost >= 19.99;
 
 > View all the rows of title, rental_rate, replacement_cost and rating columns from the `film` table, such that rental_rate is greater than $4 and replacement_cost is greater or equal to $19.99 and also whose rating is 'R'.
 
-```sql
+```postgresql
 SELECT 
   title, 
   rental_rate, 
@@ -1007,7 +1007,7 @@ WHERE rental_rate > 4
 
 > View the number of titles of the `flim` table who meets the above conditions.
 
-```sql
+```postgresql
 SELECT COUNT(*)
 FROM film 
 WHERE rental_rate > 4
@@ -1034,7 +1034,7 @@ WHERE rental_rate > 4
 
 > View the number of titles who has the rating 'R' or 'PG-13' from the `film` table.
 
-```sql
+```postgresql
 SELECT COUNT(title)
 FROM film
 WHERE rating = 'R' OR rating = 'PG-13';
@@ -1056,7 +1056,7 @@ WHERE rating = 'R' OR rating = 'PG-13';
 
 > View all columns from the `film` table whose rating is not 'R';
 
-```sql
+```postgresql
 SELECT * FROM film
 WHERE rating != 'R';
 ```
@@ -1170,7 +1170,7 @@ WHERE rating != 'R';
 
 > View all columns from `customer` table
 
-```sql
+```postgresql
 SELECT * FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -1260,7 +1260,7 @@ SELECT * FROM customer;
 
 > Order the `customer` table based on the first_name of the user, which would be an alphabetical order based on first_name in ascending order.
 
-```sql
+```postgresql
 SELECT * FROM customer
 ORDER BY first_name ASC;
 ```
@@ -1354,7 +1354,7 @@ ORDER BY first_name ASC;
 
 > Run the same query above, but this time return the result in descending order based on first_name column.
 
-```sql
+```postgresql
 SELECT * FROM customer
 ORDER BY first_name DESC;
 ```
@@ -1445,7 +1445,7 @@ ORDER BY first_name DESC;
 
 > Order the `customer` table such that the query first orders the table based on store_id to get all the results per store, and then organize it by first_name column.
 
-```sql
+```postgresql
 SELECT store_id, first_name, last_name FROM customer
 ORDER BY store_id, first_name;
 ```
@@ -1494,7 +1494,7 @@ ORDER BY store_id, first_name;
 
 > Run the same above query but this time order the rows based on 'store_id' in descending order to get results per store, followed by organzing it using the first_name column in ascending order.
 
-```sql
+```postgresql
 SELECT first_name, last_name FROM customer
 ORDER BY store_id DESC, first_name ASC;
 ```
@@ -1542,7 +1542,7 @@ ORDER BY store_id DESC, first_name ASC;
 
 > View all columns from `payment` table
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -1608,7 +1608,7 @@ SELECT * FROM payment;
 
 > View the top 3 most recent purchases in the payment table.
 
-```sql
+```postgresql
 SELECT * FROM payment
 ORDER BY payment_date DESC
 LIMIT 3;
@@ -1660,7 +1660,7 @@ LIMIT 3;
 
 > View all the columns of the `payment` table
 
-```sql
+```postgresql
 SELECT * FROM  payment
 LIMIT 3;
 ```
@@ -1709,7 +1709,7 @@ LIMIT 3;
 
 > View the rows, where the actual payments were done between $8 and $9.
 
-```sql
+```postgresql
 SELECT * FROM  payment
 WHERE amount BETWEEN 8 AND 9;
 ```
@@ -1776,7 +1776,7 @@ WHERE amount BETWEEN 8 AND 9;
 
 > View the number of payments that satisfied the above condition.
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM  payment
 WHERE amount BETWEEN 8 AND 9;
 ```
@@ -1797,7 +1797,7 @@ WHERE amount BETWEEN 8 AND 9;
 
 > View the number of payments that does not satify the above condition.
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM  payment
 WHERE amount NOT BETWEEN 8 AND 9;
 ```
@@ -1818,7 +1818,7 @@ WHERE amount NOT BETWEEN 8 AND 9;
 
 > View all the payments that happened on the first half of feburary 2007.
 
-```sql
+```postgresql
 SELECT * FROM payment
 WHERE payment_date BETWEEN '2007-02-01' AND '2007-02-15';
 ```
@@ -1890,7 +1890,7 @@ WHERE payment_date BETWEEN '2007-02-01' AND '2007-02-15';
 
 > View all columns of `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM payment
 LIMIT 3;
 ```
@@ -1939,7 +1939,7 @@ LIMIT 3;
 
 > View the actual distinct values that are available in the amount column.
 
-```sql
+```postgresql
 SELECT DISTINCT(amount) FROM payment
 ORDER BY amount;
 ```
@@ -2032,7 +2032,7 @@ ORDER BY amount;
 
 > View all the information of the `payment` table where amount happens to be $0.99, $1.98 and $1.98.
 
-```sql
+```postgresql
 SELECT * FROM payment
 WHERE amount IN (0.99, 1.98, 1.99)
 ```
@@ -2102,7 +2102,7 @@ WHERE amount IN (0.99, 1.98, 1.99)
 
 > View the number of payments that has the amount which satisfies the above condition.
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM payment
 WHERE amount IN (0.99, 1.98, 1.99)
 ```
@@ -2123,7 +2123,7 @@ WHERE amount IN (0.99, 1.98, 1.99)
 
 > Similarly, view the number of payments that doesnt have the amount which satisfies the above condition.
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM payment
 WHERE amount NOT IN (0.99, 1.98, 1.99)
 ```
@@ -2144,7 +2144,7 @@ WHERE amount NOT IN (0.99, 1.98, 1.99)
 
 > View all the columns of the `customer` table.
 
-```sql
+```postgresql
 SELECT * FROM customer
 LIMIT 3;
 ```
@@ -2209,7 +2209,7 @@ LIMIT 3;
 
 > View all the information from the `customer` table whose first_name is either 'John', 'Jake' or 'Julie'.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name IN ('John', 'Jake', 'Julie');
 ```
@@ -2265,7 +2265,7 @@ WHERE first_name IN ('John', 'Jake', 'Julie');
 
 > View all the columns of the `customer` table.
 
-```sql
+```postgresql
 SELECT * FROM customer
 LIMIT 3;
 ```
@@ -2330,7 +2330,7 @@ LIMIT 3;
 
 > Find out how many customers names that starts with an 'J'.
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM customer
 WHERE first_name LIKE 'J%';
 ```
@@ -2351,7 +2351,7 @@ WHERE first_name LIKE 'J%';
 
 > View all the information of `customer` that has first_name that starts with an 'J' and also whose last_name starts with an 'S'.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name LIKE 'J%' AND last_name LIKE 'S%';
 ```
@@ -2445,7 +2445,7 @@ WHERE first_name LIKE 'J%' AND last_name LIKE 'S%';
 
 > View all the information of `customer` that has first_name that starts with an 'J' and also whose last_name starts with an 's' using **ILIKE**.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name ILIKE 'j%' AND last_name ILIKE 's%';
 ```
@@ -2536,7 +2536,7 @@ WHERE first_name ILIKE 'j%' AND last_name ILIKE 's%';
 
 > View all the information of `customer` that has 'er' somewhere in their first_name and also in last_name.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name LIKE '%er%' AND last_name LIKE '%er%';
 ```
@@ -2630,7 +2630,7 @@ WHERE first_name LIKE '%er%' AND last_name LIKE '%er%';
 
 > View all the information of the `customer` table where the first letter matches exactly one character, followed exactly by 'her'.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name LIKE '_her%';
 ```
@@ -2708,7 +2708,7 @@ WHERE first_name LIKE '_her%';
 
 > View all the information of `customer` whose first_name starts with an 'A' and also order the result in ascending order based on first_name.
 
-```sql
+```postgresql
 SELECT * FROM customer
 WHERE first_name LIKE 'A%'
 ORDER BY first_name;

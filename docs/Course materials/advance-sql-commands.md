@@ -49,7 +49,7 @@ This guide covers a set of powerful SQL techniques that go beyond the basics, he
 
 > Display all current configuration parameters and their values for the PostgreSQL session.
 
-```sql
+```postgresql
 SHOW ALL;
 ```
 <table border="1" class="dataframe">
@@ -127,7 +127,7 @@ SHOW ALL;
 
 > Display only the current timezone setting for the session — the timezone PostgreSQL uses when interpreting or displaying timestamp values.
 
-```sql
+```postgresql
 SHOW TIMEZONE;
 ```
 <table border="1" class="dataframe">
@@ -147,7 +147,7 @@ SHOW TIMEZONE;
 
 > Display the current timestamp information.
 
-```sql
+```postgresql
 SELECT NOW();
 ```
 <table border="1" class="dataframe">
@@ -167,7 +167,7 @@ SELECT NOW();
 
 > Change the timezone format to string for readability.
 
-```sql
+```postgresql
 SELECT TIMEOFDAY();
 ```
 <table border="1" class="dataframe">
@@ -187,7 +187,7 @@ SELECT TIMEOFDAY();
 
 > Display only the current time.
 
-```sql
+```postgresql
 SELECT CURRENT_TIME;
 ```
 <table border="1" class="dataframe">
@@ -207,7 +207,7 @@ SELECT CURRENT_TIME;
 
 > Display only the current date.
 
-```sql
+```postgresql
 SELECT CURRENT_DATE;
 ```
 <table border="1" class="dataframe">
@@ -227,7 +227,7 @@ SELECT CURRENT_DATE;
 
 > View the `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -293,7 +293,7 @@ SELECT * FROM payment;
 
 > Extract **YEAR** FROM payment_date.
 
-```sql
+```postgresql
 SELECT EXTRACT(YEAR FROM payment_date) AS my_year
 FROM payment;
 ```
@@ -330,7 +330,7 @@ FROM payment;
 
 > Extract **MONTH** FROM payment_date.
 
-```sql
+```postgresql
 SELECT EXTRACT(MONTH FROM payment_date) AS pay_month
 FROM payment;
 ```
@@ -367,7 +367,7 @@ FROM payment;
 
 > Extract **QUARTER** of the month FROM payment_date.
 
-```sql
+```postgresql
 SELECT EXTRACT(QUARTER FROM payment_date) AS pay_month
 FROM payment;
 ```
@@ -414,7 +414,7 @@ FROM payment;
 
 > Check how old the timestamp date was in regards to the current moment/date.
 
-```sql
+```postgresql
 SELECT AGE(payment_date) 
 FROM payment;
 ```
@@ -454,7 +454,7 @@ FROM payment;
 
 Source: [Functions Formatting Documentation](https://www.postgresql.org/docs/15/functions-formatting.html)
 
-```sql
+```postgresql
 SELECT TO_CHAR(payment_date, 'MONTH -> YYYY')
 FROM payment;
 ```
@@ -489,7 +489,7 @@ FROM payment;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT TO_CHAR(payment_date, 'mon/dd/YYYY')
 FROM payment;
 ```
@@ -524,7 +524,7 @@ FROM payment;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT TO_CHAR(payment_date, 'MM/dd/YYYY')
 FROM payment;
 ```
@@ -559,7 +559,7 @@ FROM payment;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT TO_CHAR(payment_date, 'YYYY-MM-DD')
 FROM payment;
 ```
@@ -605,7 +605,7 @@ Source : [Mathematical Function Documentation](https://www.postgresql.org/docs/c
 
 > View the `film` table.
 
-```sql
+```postgresql
 SELECT * FROM film;
 ```
 <table border="1" class="dataframe">
@@ -713,7 +713,7 @@ SELECT * FROM film;
 
 > Find out what percentage of the replacement_cost is a rental rate.
 
-```sql
+```postgresql
 SELECT ROUND(rental_rate/replacement_cost, 2) * 100 AS percent_cost
 FROM film;
 ```
@@ -750,7 +750,7 @@ FROM film;
 
 > Put some small deposits down of 10% of the replacement_cost.
 
-```sql
+```postgresql
 SELECT 0.1 * replacement_cost AS deposit
 FROM film;
 ```
@@ -794,7 +794,7 @@ Source: [String Functions Documentation](https://www.postgresql.org/docs/current
 
 > View the `customer` table.
 
-```sql
+```postgresql
 SELECT * FROM customer;
 ```
 <div>
@@ -885,7 +885,7 @@ SELECT * FROM customer;
 
 > Display the length of first_name.
 
-```sql
+```postgresql
 SELECT first_name, LENGTH(first_name)
 FROM customer;
 ```
@@ -928,7 +928,7 @@ FROM customer;
 
 > Concatenate first_name with last_name.
 
-```sql
+```postgresql
 SELECT first_name || last_name AS full_name
 FROM customer;
 ```
@@ -965,7 +965,7 @@ FROM customer;
 
 > Add space between first_name and last_name.
 
-```sql
+```postgresql
 SELECT first_name || ' ' || last_name AS full_name
 FROM customer;
 ```
@@ -1002,7 +1002,7 @@ FROM customer;
 
 > Uppercase the full_name
 
-```sql
+```postgresql
 SELECT UPPER(first_name) || ' ' || UPPER(last_name) AS full_name
 FROM customer;
 ```
@@ -1041,7 +1041,7 @@ FROM customer;
 
 Mail Example : Siddhartha Shakya -> s.shakya@wlv.ac.uk
 
-```sql
+```postgresql
 SELECT LOWER(LEFT(first_name, 1)) || '.' || LOWER(last_name) || '@wlv.ac.uk' AS custom_mails
 FROM customer;
 ```
@@ -1082,7 +1082,7 @@ FROM customer;
 
 > View the `film` rate.
 
-```sql
+```postgresql
 SELECT * FROM film;
 ```
 <table border="1" class="dataframe">
@@ -1190,7 +1190,7 @@ SELECT * FROM film;
 
 > Find the title whose rental_rate is greater than average renta_rate.
 
-```sql
+```postgresql
 SELECT title, rental_rate
 FROM film
 WHERE rental_rate > (
@@ -1242,7 +1242,7 @@ WHERE rental_rate > (
 
 > View the `rental` & `inventory` table.
 
-```sql
+```postgresql
 SELECT * FROM rental;
 ```
 <table border="1" class="dataframe">
@@ -1312,7 +1312,7 @@ SELECT * FROM rental;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT * FROM inventory;
 ```
 <table border="1" class="dataframe">
@@ -1366,7 +1366,7 @@ SELECT * FROM inventory;
 
 > Grab the film titles, that have been returned between a certain set of dates (May 29, 2005 & May 30, 2005).
 
-```sql
+```postgresql
 SELECT film_id, title
 FROM film 
 WHERE film_id IN
@@ -1418,7 +1418,7 @@ ORDER BY title;
 
 > Find customers who have atleast one payment, whose amount is greater than 11.
 
-```sql
+```postgresql
 SELECT first_name, last_name 
 FROM customer AS c
 WHERE EXISTS (
@@ -1470,7 +1470,7 @@ WHERE EXISTS (
 
 > View the `film` table.
 
-```sql
+```postgresql
 SELECT * FROM film;
 ```
 <table border="1" class="dataframe">
@@ -1578,7 +1578,7 @@ SELECT * FROM film;
 
 > Find out what films happen to match up together as pairs that have this same length.
 
-```sql
+```postgresql
 SELECT title, length 
 FROM film 
 WHERE length = 117;
@@ -1623,7 +1623,7 @@ WHERE length = 117;
 
 > Pair the above films together.
 
-```sql
+```postgresql
 SELECT f1.title, f2.title, f1.length
 FROM film f1
 INNER JOIN film f2

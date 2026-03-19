@@ -2,7 +2,7 @@
 
 ### COUNT - Counting Rows
 
-```sql
+```postgresql
 -- Count all rows
 SELECT COUNT(*) FROM customers;
 
@@ -15,7 +15,7 @@ SELECT COUNT(DISTINCT city) FROM customers;
 
 ### SUM - Adding Values
 
-```sql
+```postgresql
 -- Total revenue
 SELECT SUM(total_amount) FROM orders;
 
@@ -25,7 +25,7 @@ SELECT SUM(quantity) FROM order_items;
 
 ### AVG - Average Values
 
-```sql
+```postgresql
 -- Average product price
 SELECT AVG(price) FROM products;
 
@@ -35,7 +35,7 @@ SELECT AVG(total_amount) FROM orders;
 
 ### MIN and MAX
 
-```sql
+```postgresql
 -- Cheapest and most expensive products
 SELECT 
     MIN(price) AS cheapest,
@@ -47,7 +47,7 @@ FROM products;
 
 Group rows that have the same values and apply aggregate functions.
 
-```sql
+```postgresql
 -- Count customers per city
 SELECT 
     city, 
@@ -77,7 +77,7 @@ ORDER BY customer_count DESC;
 
 `WHERE` filters before grouping, `HAVING` filters after grouping.
 
-```sql
+```postgresql
 -- Cities with more than 10 customers
 SELECT 
     city,

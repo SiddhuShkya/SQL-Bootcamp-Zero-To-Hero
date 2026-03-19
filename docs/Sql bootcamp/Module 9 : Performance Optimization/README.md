@@ -2,7 +2,7 @@
 
 ### EXPLAIN - Query Execution Plan
 
-```sql
+```postgresql
 -- Analyze query performance
 EXPLAIN SELECT * FROM orders WHERE customer_id = 100;
 
@@ -12,7 +12,7 @@ EXPLAIN ANALYZE SELECT * FROM orders WHERE customer_id = 100;
 
 ### Index Optimization
 
-```sql
+```postgresql
 -- Good: Using index
 SELECT * FROM customers WHERE email = 'john@email.com';
 
@@ -29,7 +29,7 @@ CREATE INDEX idx_orders_covering ON orders(customer_id, order_date, total_amount
 ### Query Optimization Techniques
 
 **1. Select only needed columns:**
-```sql
+```postgresql
 -- Bad
 SELECT * FROM products;
 
@@ -38,7 +38,7 @@ SELECT id, product_name, price FROM products;
 ```
 
 **2. Use EXISTS instead of IN for large datasets:**
-```sql
+```postgresql
 -- Slower for large datasets
 SELECT * FROM customers 
 WHERE id IN (SELECT customer_id FROM orders);
@@ -49,7 +49,7 @@ WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);
 ```
 
 **3. Avoid SELECT DISTINCT when possible:**
-```sql
+```postgresql
 -- Slower
 SELECT DISTINCT customer_id FROM orders;
 
@@ -58,7 +58,7 @@ SELECT customer_id FROM orders GROUP BY customer_id;
 ```
 
 **4. Use LIMIT for large result sets:**
-```sql
+```postgresql
 -- Pagination
 SELECT * FROM products 
 ORDER BY created_at DESC 
@@ -66,7 +66,7 @@ LIMIT 20 OFFSET 0;
 ```
 
 **5. Optimize JOINs:**
-```sql
+```postgresql
 -- Bad: Joining large tables without filtering
 SELECT * FROM orders o
 JOIN customers c ON o.customer_id = c.id;
@@ -79,7 +79,7 @@ WHERE o.order_date >= '2024-01-01';
 
 ### Database Maintenance
 
-```sql
+```postgresql
 -- Update statistics (PostgreSQL)
 ANALYZE customers;
 

@@ -43,7 +43,7 @@ This document contains all the sql **AS**, **JOINs** and **UNIONs** statements, 
 
 > Explore the `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM payment
 LIMIT 5;
 ```
@@ -110,7 +110,7 @@ LIMIT 5;
 
 > View the total number of transactions made, and clarify the result using an alias.
 
-```sql
+```postgresql
 SELECT COUNT(*) AS num_transactions FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -132,7 +132,7 @@ The result column has been renamed to 'num_transactions' from 'COUNT(*)', calrif
 
 > View how much each customer has spend.
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) FROM payment
 GROUP BY customer_id;
 ```
@@ -175,7 +175,7 @@ GROUP BY customer_id;
 
 > Use an alias to clarify the above result.
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) AS total_spent FROM payment
 GROUP BY customer_id;
 ```
@@ -218,7 +218,7 @@ GROUP BY customer_id;
 
 > Filter the above result, only display those whos total_spent is greater than 100.
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) AS total_spent FROM payment
 GROUP BY customer_id
 HAVING total_spent > 100;
@@ -237,7 +237,7 @@ Character: 89
 
 > You can use the column name or the function to use filter.
 
-```sql
+```postgresql
 SELECT customer_id, SUM(amount) AS total_spent FROM payment
 GROUP BY customer_id
 HAVING SUM(amount) > 100;
@@ -289,7 +289,7 @@ HAVING SUM(amount) > 100;
 
 > View `customer` and `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM 
 customer;
 ```
@@ -378,7 +378,7 @@ customer;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT * FROM 
 payment;
 ```
@@ -445,7 +445,7 @@ payment;
 
 > View the customer email associated with specific payment.
 
-```sql
+```postgresql
 SELECT * FROM payment
 INNER JOIN customer
 ON payment.customer_id = customer.customer_id;
@@ -576,7 +576,7 @@ ON payment.customer_id = customer.customer_id;
 
 > View only the specific columns: payment_id, customer_id, first_name
 
-```sql
+```postgresql
 SELECT payment_id, payment.customer_id, first_name
 FROM payment
 INNER JOIN customer
@@ -640,7 +640,7 @@ There are few different types of OUTER JOINs, which allows us to deal with value
 
 > View `customer` and `payment` table.
 
-```sql
+```postgresql
 SELECT * FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -728,7 +728,7 @@ SELECT * FROM customer;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT * FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -794,7 +794,7 @@ SELECT * FROM payment;
 
 > View all the payments that are associated with the current customer and all the customers that are associated with an historical payment.
 
-```sql
+```postgresql
 SELECT * FROM customer
 FULL OUTER JOIN payment
   ON customer.customer_id = payment.customer_id;
@@ -925,7 +925,7 @@ FULL OUTER JOIN payment
 
 > Filter the above result so that the information is unique to payment, not associative customer or unique to customer.
 
-```sql
+```postgresql
 SELECT * FROM customer
 FULL OUTER JOIN payment
   ON customer.customer_id = payment.customer_id
@@ -963,7 +963,7 @@ OR payment.payment_id IS NULL;
 
 > Try verifying the result using the **DISTINCT** keyword. *Hint: The unique number of customer_id in the payment table must match the number of rows in the customer table*
 
-```sql
+```postgresql
 SELECT COUNT(DISTINCT customer_id) FROM payment;
 ```
 <table border="1" class="dataframe">
@@ -981,7 +981,7 @@ SELECT COUNT(DISTINCT customer_id) FROM payment;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT COUNT(*) FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -1006,7 +1006,7 @@ SELECT COUNT(*) FROM customer;
 
 > Explore `film` and `inventory` table.
 
-```sql
+```postgresql
 SELECT * FROM film;
 ```
 <table border="1" class="dataframe">
@@ -1112,7 +1112,7 @@ SELECT * FROM film;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT * FROM inventory;
 ```
 <table border="1" class="dataframe">
@@ -1166,7 +1166,7 @@ SELECT * FROM inventory;
 
 > View the rows that are either in just the `film` table or both in `film` and `inventory` table.
 
-```sql
+```postgresql
 SELECT film.film_id, title, inventory_id, store_id
 FROM film
 LEFT JOIN inventory ON
@@ -1227,7 +1227,7 @@ inventory.film_id = film.film_id;
 
 > Check if there are values that only exists in the `film` table.
 
-```sql
+```postgresql
 SELECT 
 	film.film_id, 
 	title, 
@@ -1295,7 +1295,7 @@ A **RIGHT JOIN** is essentially the same as a **LEFT JOIN**, except the tables a
 
 > Query Example:
 
-```sql
+```postgresql
 SELECT * FROM TableA
 RIGHT OUTER JOIN TableB
 ON TableA.col_match = TableB.col_match;
@@ -1312,7 +1312,7 @@ ON TableA.col_match = TableB.col_match;
 
 > Explore `sales2021_q1` and `sales2021_q2` tables.
 
-```sql
+```postgresql
 SELECT * FROM sales2021_q1;
 ```
 <table border="1" class="dataframe">
@@ -1342,7 +1342,7 @@ SELECT * FROM sales2021_q1;
   </tbody>
 </table>
 
-```sql
+```postgresql
 SELECT * FROM sales2021_q2;
 ```
 <table border="1" class="dataframe">
@@ -1384,7 +1384,7 @@ SELECT * FROM sales2021_q2;
 
 > Concatenate both the above tables, and order the results in descending order based on the name column.
 
-```sql
+```postgresql
 SELECT * FROM df_table1
 UNION
 SELECT * FROM df_table2 
