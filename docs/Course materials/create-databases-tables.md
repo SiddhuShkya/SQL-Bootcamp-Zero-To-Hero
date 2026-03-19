@@ -401,3 +401,223 @@ Detail: Key (user_id)=(10) is not present in table "account".
 ---
 
 ### 4. UPDATE
+
+> Explore the `account` table.
+
+```sql
+SELECT * FROM account;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>username</th>
+      <th>password</th>
+      <th>email</th>
+      <th>create_on</th>
+      <th>last_login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>siddhu</td>
+      <td>password</td>
+      <td>siddhu@gmail.com</td>
+      <td>2026-03-18 17:06:23.049040</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+> Update the last_login column to the current timestamp.
+
+```sql
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP;
+```
+```text
+UPDATE 1
+
+Query returned successfully in 41 msec.
+```
+
+> Verify the update.
+
+```sql
+SELECT * FROM account;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>username</th>
+      <th>password</th>
+      <th>email</th>
+      <th>create_on</th>
+      <th>last_login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>siddhu</td>
+      <td>password</td>
+      <td>siddhu@gmail.com</td>
+      <td>2026-03-18 17:06:23.049040</td>
+      <td>2026-03-19 13:33:58.673466</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Note that this query updates all the rows from the last_login column to the current timestamp as we aren't setting any conditions using the **WHERE** clause.
+
+> Explore the `job` table.
+
+```sql
+SELECT * FROM job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>job_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Astronaut</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>President</td>
+    </tr>
+  </tbody>
+</table>
+
+> Explore the `account_job` table.
+
+```sql
+SELECT * FROM account_job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>job_id</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>2026-03-18 17:20:29.290135</td>
+    </tr>
+  </tbody>
+</table>
+
+> Update the hire_date based on another table.
+
+```sql
+UPDATE account_job
+SET hire_date = account.create_on
+FROM account
+WHERE account_job.user_id = account.user_id;
+```
+```text
+UPDATE 1
+
+Query returned successfully in 60 msec.
+```
+
+> Verify the update.
+
+```sql
+SELECT * FROM account_job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>job_id</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>2026-03-18 17:06:23.049040</td>
+    </tr>
+  </tbody>
+</table>
+
+```sql
+SELECT * FROM account;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>username</th>
+      <th>password</th>
+      <th>email</th>
+      <th>create_on</th>
+      <th>last_login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>siddhu</td>
+      <td>password</td>
+      <td>siddhu@gmail.com</td>
+      <td>2026-03-18 17:06:23.049040</td>
+      <td>2026-03-19 13:33:58.673466</td>
+    </tr>
+  </tbody>
+</table>
+
+> Update the last_login to the current timestamp, but this time also return the updated rows.
+
+```postgresql
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP
+RETURNING email, last_login;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>email</th>
+      <th>last_login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>siddhu@gmail.com</td>
+      <td>2026-03-19 13:49:29.602175</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 5. DELETE
