@@ -37,7 +37,7 @@ customers              customer_phones
 
 ### Primary Keys and Foreign Keys
 
-```postgresql
+```sql
 -- Create table with primary key
 CREATE TABLE customers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,7 +73,7 @@ CREATE TABLE order_items (
 
 ### Constraints
 
-```postgresql
+```sql
 CREATE TABLE products (
     id INTEGER PRIMARY KEY,
     product_name VARCHAR(100) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE products (
 
 ### Indexes
 
-```postgresql
+```sql
 -- Create index
 CREATE INDEX idx_customers_email ON customers(email);
 
@@ -108,7 +108,7 @@ SHOW INDEX FROM customers;
 
 ### Views
 
-```postgresql
+```sql
 -- Create view
 CREATE VIEW customer_orders AS
 SELECT 

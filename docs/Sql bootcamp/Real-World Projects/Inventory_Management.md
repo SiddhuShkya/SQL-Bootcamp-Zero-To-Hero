@@ -1,6 +1,6 @@
 ### Inventory Management
 
-```postgresql
+```sql
 -- Low stock alert
 SELECT 
     p.product_name,

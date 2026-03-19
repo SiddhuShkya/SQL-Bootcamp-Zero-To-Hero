@@ -4,7 +4,7 @@ Subqueries are queries nested inside another query.
 
 ### Subquery in WHERE Clause
 
-```postgresql
+```sql
 -- Find products more expensive than average
 SELECT product_name, price
 FROM products
@@ -23,7 +23,7 @@ WHERE id NOT IN (SELECT DISTINCT product_id FROM order_items);
 
 ### Subquery in SELECT Clause
 
-```postgresql
+```sql
 -- Show each customer with their total number of orders
 SELECT 
     first_name,
@@ -45,7 +45,7 @@ FROM products;
 
 ### Subquery in FROM Clause (Derived Tables)
 
-```postgresql
+```sql
 -- Average order value per customer
 SELECT 
     customer_id,
@@ -73,7 +73,7 @@ JOIN customers c ON customer_totals.customer_id = c.id;
 
 Subquery references the outer query.
 
-```postgresql
+```sql
 -- Products with above-average price in their category
 SELECT p1.product_name, p1.price, p1.category_id
 FROM products p1
@@ -102,7 +102,7 @@ WHERE (
 
 ### EXISTS and NOT EXISTS
 
-```postgresql
+```sql
 -- Customers who have placed orders
 SELECT first_name, last_name
 FROM customers c

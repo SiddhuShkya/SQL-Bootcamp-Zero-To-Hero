@@ -19,14 +19,14 @@ Table: customers
 The `SELECT` statement retrieves data from a database.
 
 **Basic Syntax:**
-```postgresql
+```sql
 SELECT column1, column2
 FROM table_name;
 ```
 
 **Examples:**
 
-```postgresql
+```sql
 -- Select all columns
 SELECT * FROM customers;
 
@@ -42,7 +42,7 @@ FROM customers;
 
 ### DISTINCT - Removing Duplicates
 
-```postgresql
+```sql
 -- Get unique cities
 SELECT DISTINCT city FROM customers;
 

@@ -71,7 +71,7 @@
 
 > My Solution:
 
-```postgresql
+```sql
 SELECT 
 	customer_id, 
 	SUM(amount) 
@@ -104,7 +104,7 @@ HAVING SUM(amount) >= 110;
 
 > Course Solution:
 
-```postgresql
+```sql
 SELECT customer_id, SUM(amount)
 FROM payment
 WHERE staff_id = 2
@@ -246,7 +246,7 @@ HAVING SUM(amount) > 110;
 
 > My Solution:
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM film
 WHERE title LIKE 'J%';
 ```
@@ -268,7 +268,7 @@ WHERE title LIKE 'J%';
 
 > Course Solution:
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM film
 WHERE title LIKE 'J%';
 ```
@@ -383,7 +383,7 @@ WHERE title LIKE 'J%';
 
 > My Solution:
 
-```postgresql
+```sql
 SELECT first_name, last_name FROM customer
 WHERE first_name LIKE 'E%' AND address_id < 500
 ORDER BY customer_id DESC
@@ -408,7 +408,7 @@ LIMIT 1;
 
 > Course Solution:
 
-```postgresql
+```sql
 SELECT first_name, last_name FROM customer
 WHERE first_name LIKE 'E%'
     AND address_id <500
@@ -497,7 +497,7 @@ https://github.com/SiddhuShkya/SQL-Bootcamp-Zero-To-Hero/blob/main/database/exer
 
 > bookings 
 
-```postgresql
+```sql
 SELECT * FROM cd.bookings;
 ```
 
@@ -558,7 +558,7 @@ SELECT * FROM cd.bookings;
 
 > facilities
 
-```postgresql
+```sql
 SELECT * FROM cd.facilities;
 ```
 
@@ -625,7 +625,7 @@ SELECT * FROM cd.facilities;
 
 > members
 
-```postgresql
+```sql
 SELECT * FROM cd.members;
 ```
 
@@ -709,7 +709,7 @@ SELECT * FROM cd.members;
 
 > How can you retrieve all the information from the cd.facilities table ?
 
-```postgresql
+```sql
 SELECT * FROM cd.facilities;
 ```
 
@@ -815,7 +815,7 @@ SELECT * FROM cd.facilities;
 
 > How would you retrieve a list of only facility names and costs?
 
-```postgresql
+```sql
 SELECT name, membercost  FROM cd.facilities;
 ```
 
@@ -878,7 +878,7 @@ SELECT name, membercost  FROM cd.facilities;
 
 > How can you produce a list of facilities that charge a fee to members?
 
-```postgresql
+```sql
 SELECT name, membercost  FROM cd.facilities
 WHERE membercost > 0;
 ```
@@ -921,7 +921,7 @@ WHERE membercost > 0;
 
 > How can you produce a list of facilities that charge a fee to members, and that fee is less than 1/50th of the monthly mainteanance cost? Return the facid, facility name, member cost, and monthly mainteanance of the facilities in question.
 
-```postgresql
+```sql
 SELECT facid, name, membercost, monthlymaintenance FROM cd.facilities
 WHERE membercost < (monthlymaintenance / 50.0) AND membercost > 0;
 ```
@@ -955,7 +955,7 @@ WHERE membercost < (monthlymaintenance / 50.0) AND membercost > 0;
 
 > How can you produce a list of all facilities with the word 'Tennis' in their name?
 
-```postgresql
+```sql
 SELECT * FROM cd.facilities
 WHERE name LIKE '%Tennis%';
 ```
@@ -1006,7 +1006,7 @@ WHERE name LIKE '%Tennis%';
 
 - With OR operator:
 
-```postgresql
+```sql
 SELECT * FROM cd.facilities
 WHERE facid = 1 OR facid = 5;
 ```
@@ -1015,14 +1015,14 @@ WHERE facid = 1 OR facid = 5;
 
 *Solution 1:*
 
-```postgresql
+```sql
 SELECT * FROM cd.facilities
 WHERE facid IN (1, 5);
 ```
 
 *Solution 2:*
 
-```postgresql
+```sql
 SELECT * FROM cd.facilities
 WHERE facid = 1
 
@@ -1070,7 +1070,7 @@ WHERE facid = 5;
 
 > How can you produce a list of members who joined after the start of september 2012? Return the memid, surname, firstname, and joindate of the members in question?
 
-```postgresql
+```sql
 SELECT memid, surname, firstname, joindate FROM cd.members
 WHERE joindate >= '2012-09-01 00:00:00';
 ```
@@ -1161,7 +1161,7 @@ WHERE joindate >= '2012-09-01 00:00:00';
 
 > How can you produce an ordered list of the first 10 surnames in the members table? The list must not contain duplicates.
 
-```postgresql
+```sql
 SELECT DISTINCT surname FROM cd.members
 ORDER BY surname
 LIMIT 10;
@@ -1222,7 +1222,7 @@ LIMIT 10;
 
 *Solution 1:*
 
-```postgresql
+```sql
 SELECT joindate AS last_signup_date FROM cd.members
 ORDER BY joindate DESC
 LIMIT 1;
@@ -1230,7 +1230,7 @@ LIMIT 1;
 
 *Solution 2:*
 
-```postgresql
+```sql
 SELECT MAX(joindate) AS last_signup_date
 FROM cd.members;
 ```
@@ -1254,7 +1254,7 @@ FROM cd.members;
 
 > Produce a count of the number of facilities that have a cost to guests of 10 or more.
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM cd.facilities
 WHERE guestcost >= 10;
 ```
@@ -1276,7 +1276,7 @@ WHERE guestcost >= 10;
 
 > Produce a list of of the total number of slots booked per facility in the month of september 2012. Produce an output table consisting of facility id and slots, sorted by the number of slots.
 
-```postgresql
+```sql
 SELECT facid, SUM(slots) AS total_slots
 FROM cd.bookings
 WHERE starttime >= '2012-09-01 00:00:00' 
@@ -1344,7 +1344,7 @@ ORDER BY total_slots;
 
 > Produce a list of facilities with more than 1000 slots booked. Produce an output table consisting of facility id and total slots, sorted by facility id.
 
-```postgresql
+```sql
 SELECT facid, SUM(slots) AS total_slots 
 FROM cd.bookings
 GROUP BY facid
@@ -1391,7 +1391,7 @@ ORDER BY facid;
 
 > How can you produce a list of the start times for booking for tennis courts, for the date '2012-09-21'? Return a list of stat time and facility name pairings, ordered by the time.
 
-```postgresql
+```sql
 SELECT f.name, b.starttime 
 FROM cd.facilities f
 INNER JOIN cd.bookings b
@@ -1475,7 +1475,7 @@ ORDER BY b.starttime;
 
 > How can you produce a list of the start times for bookings by members named 'David Farrell'?
 
-```postgresql
+```sql
 SELECT b.starttime
 FROM cd.members m
 INNER JOIN cd.bookings b

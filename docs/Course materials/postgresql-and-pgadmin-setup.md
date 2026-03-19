@@ -128,7 +128,7 @@ You should be able to see something like the below in your screen:
 
 - Run the ALTER command: (Replace 'your_secure_password' with whatever you want, but keep the single quotes).
 
-    ```postgresql
+    ```sql
     ALTER USER postgres PASSWORD 'your_secure_password';
     ```
 
@@ -397,7 +397,7 @@ sudo reboot
 
 4.5 Copy paste the below SQL query and run the script using the play button at the top.
 
-```postgresql
+```sql
 SELECT * FROM film;
 ```
 

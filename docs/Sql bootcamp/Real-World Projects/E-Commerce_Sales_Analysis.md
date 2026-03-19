@@ -9,7 +9,7 @@
 
 **Sample Solutions:**
 
-```postgresql
+```sql
 -- 1. Top 10 best-selling products
 SELECT 
     p.product_name,

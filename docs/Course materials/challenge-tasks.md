@@ -70,7 +70,7 @@ This document will contain all the challenges that were presented to me for a be
 
 - View all columns from `customer` table
 
-```postgresql
+```sql
 SELECT * FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -160,7 +160,7 @@ SELECT * FROM customer;
 
 - View first_name, last_name, email from `customer`
 
-```postgresql
+```sql
 SELECT first_name, last_name, email FROM customer;
 ```
 <table border="1" class="dataframe">
@@ -258,7 +258,7 @@ SELECT first_name, last_name, email FROM customer;
 
 - View all the distinct rating from the `film` table
 
-```postgresql
+```sql
 SELECT DISTINCT rating FROM film;
 ```
 <table border="1" class="dataframe">
@@ -340,7 +340,7 @@ SELECT DISTINCT rating FROM film;
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT email FROM customer
 WHERE first_name = 'Nancy' AND last_name = 'Thomas';
 ```
@@ -391,7 +391,7 @@ WHERE first_name = 'Nancy' AND last_name = 'Thomas';
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT description FROM film
 WHERE title = 'Outlaw Hanky';
 ```
@@ -443,7 +443,7 @@ WHERE title = 'Outlaw Hanky';
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT phone FROM address 
 WHERE address = '259 Ipoh Drive';
 ```
@@ -534,7 +534,7 @@ WHERE address = '259 Ipoh Drive';
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT customer_id FROM payment
 ORDER BY payment_date ASC
 LIMIT 10;
@@ -642,7 +642,7 @@ LIMIT 10;
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT title, length FROM film 
 ORDER BY length ASC
 LIMIT 5;
@@ -698,7 +698,7 @@ If the previous customer can watch any movie that is 50 minutes or less in runti
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM film
 WHERE length <= 50;
 ```
@@ -731,7 +731,7 @@ These challenges are designed in such a way, so that we can utilize everything w
 
 > `My Solution`:
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM payment
 WHERE amount > 5.00;
 ```
@@ -758,7 +758,7 @@ WHERE amount > 5.00;
 
 > `My Solution`:
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM actor
 WHERE first_name LIKE 'P%';
 ```
@@ -785,7 +785,7 @@ WHERE first_name LIKE 'P%';
 
 > `My Solution`:
 
-```postgresql
+```sql
 SELECT COUNT(DISTINCT district) FROM address;
 ```
 <table border="1" class="dataframe">
@@ -811,7 +811,7 @@ SELECT COUNT(DISTINCT district) FROM address;
 
 > `My Solution`:
 
-```postgresql
+```sql
 SELECT DISTINCT district FROM address;
 ```
 <table border="1" class="dataframe">
@@ -853,7 +853,7 @@ SELECT DISTINCT district FROM address;
 
 > `My Solution`:
 
-```postgresql
+```sql
 SELECT COUNT(*) FROM film
 WHERE rating = 'R' 
 	AND replacement_cost BETWEEN 5 AND 15;
@@ -881,7 +881,7 @@ WHERE rating = 'R'
 
 > `My Solution`:
 
-```postgresql
+```sql
 SELECT * FROM film
 WHERE title ILIKE '%Truman%';
 ```
@@ -940,7 +940,7 @@ WHERE title ILIKE '%Truman%';
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT staff_id, COUNT(*)
 FROM payment
 GROUP BY staff_id;
@@ -1021,7 +1021,7 @@ GROUP BY staff_id;
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT rating, ROUND(AVG(replacement_cost), 3) 
 FROM film
 GROUP BY rating;
@@ -1116,7 +1116,7 @@ GROUP BY rating;
 
 > `Solution`:
 
-```postgresql
+```sql
 SELECT customer_id, SUM(amount)
 FROM payment
 GROUP BY customer_id
@@ -1205,7 +1205,7 @@ LIMIT 5;
 
 `Solution`:
 
-```postgresql
+```sql
 SELECT customer_id, COUNT(*) FROM payment
 GROUP BY customer_id
 HAVING COUNT(*) >= 40;
@@ -1286,7 +1286,7 @@ HAVING COUNT(*) >= 40;
 
 `Solution`:
 
-```postgresql
+```sql
 SELECT customer_id, SUM(amount) FROM payment
 WHERE staff_id = 2
 GROUP BY customer_id
@@ -1405,7 +1405,7 @@ HAVING SUM(amount) > 100;
 
 `Solution`:
 
-```postgresql
+```sql
 SELECT email, district FROM customer
 INNER JOIN address 
 	ON customer.address_id = address.address_id
@@ -1527,7 +1527,7 @@ WHERE address.district = 'California';
 
 `Solution`:
 
-```postgresql
+```sql
 SELECT first_name, last_name, film.title
 FROM actor
 INNER JOIN film_actor
@@ -1630,7 +1630,7 @@ actor → film_actor → film
 
 `Solution`:
 
-```postgresql
+```sql
 SELECT DISTINCT TO_CHAR(payment_date, 'MONTH') 
 FROM payment;
 ```
@@ -1675,7 +1675,7 @@ FROM payment;
 
 `Solution`:
 
-```postgresql
+```sql
 SELECT COUNT(*)
 FROM payment
 WHERE EXTRACT(dow FROM payment_date) = 1;

@@ -4,7 +4,7 @@
 
 The `WHERE` clause filters records based on conditions.
 
-```postgresql
+```sql
 -- Equal to
 SELECT * FROM products WHERE price = 29.99;
 
@@ -31,7 +31,7 @@ WHERE (category_id = 1 OR category_id = 2)
 
 ### IN Operator
 
-```postgresql
+```sql
 -- Instead of multiple OR conditions
 SELECT * FROM products 
 WHERE category_id IN (1, 2, 3);
@@ -43,7 +43,7 @@ WHERE category_id NOT IN (1, 2, 3);
 
 ### BETWEEN Operator
 
-```postgresql
+```sql
 -- Price range
 SELECT * FROM products 
 WHERE price BETWEEN 20 AND 50;
@@ -55,7 +55,7 @@ WHERE order_date BETWEEN '2024-01-01' AND '2024-12-31';
 
 ### LIKE Operator - Pattern Matching
 
-```postgresql
+```sql
 -- Starts with 'A'
 SELECT * FROM customers 
 WHERE first_name LIKE 'A%';
@@ -79,7 +79,7 @@ WHERE product_name LIKE '%laptop%';
 
 ### IS NULL / IS NOT NULL
 
-```postgresql
+```sql
 -- Find customers without phone numbers
 SELECT * FROM customers 
 WHERE phone IS NULL;
@@ -91,7 +91,7 @@ WHERE email IS NOT NULL;
 
 ### ORDER BY - Sorting Results
 
-```postgresql
+```sql
 -- Sort ascending (default)
 SELECT * FROM products 
 ORDER BY price;
@@ -112,7 +112,7 @@ ORDER BY 2 DESC;  -- Orders by price (2nd column)
 
 ### LIMIT - Restricting Results
 
-```postgresql
+```sql
 -- Get top 10 most expensive products
 SELECT * FROM products 
 ORDER BY price DESC 
