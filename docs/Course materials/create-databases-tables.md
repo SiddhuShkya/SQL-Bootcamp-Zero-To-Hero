@@ -621,3 +621,132 @@ RETURNING email, last_login;
 ---
 
 ### 5. DELETE
+
+> Explore the `job` table.
+
+```sql
+SELECT * FROM job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>job_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Astronaut</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>President</td>
+    </tr>
+  </tbody>
+</table>
+
+> Add a new row with job title 'Cowboy'.
+
+```sql
+INSERT INTO job(job_name)
+VALUES 
+  ('Cowboy');
+```
+
+```text
+INSERT 0 1
+
+Query returned successfully in 67 msec.
+```
+
+> Explore the newly updated `job` table.
+
+```sql
+SELECT * FROM job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>job_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Astronaut</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>President</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Cowboy</td>
+    </tr>
+  </tbody>
+</table>
+
+> Delete the rescetly added row from the `job` table.
+
+```sql
+DELETE FROM job
+WHERE job_name = 'Cowboy'
+RETURNING job_id, job_name;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>job_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>Cowboy</td>
+    </tr>
+  </tbody>
+</table>
+
+
+> [!NOTE]
+> If you run the above DELETE query again it will return nothing as the rows has already been removed from the table.
+
+> Recheck the `job` table to verify the deletion of the row.
+
+```sql
+SELECT * FROM job;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>job_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Astronaut</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>President</td>
+    </tr>
+  </tbody>
+</table>
