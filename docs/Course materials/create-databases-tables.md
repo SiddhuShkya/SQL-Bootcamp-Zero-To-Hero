@@ -750,3 +750,192 @@ SELECT * FROM job;
     </tr>
   </tbody>
 </table>
+
+---
+
+### 5. ALTER
+
+> Documentation here : [PostgreSQL : ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html)
+
+> Create a new table named `information`.
+
+```sql
+CREATE TABLE information(
+	info_id SERIAL PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	person VARCHAR(50) NOT NULL UNIQUE
+);
+```
+```text
+CREATE TABLE
+
+Query returned successfully in 121 msec.
+```
+
+> View the columns of the `information` table.
+
+```sql
+SELECT * FROM information;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>info_id</th>
+      <th>title</th>
+      <th>person</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+> Rename the table name from `information` to `new_info`.
+
+```sql
+ALTER TABLE information
+RENAME TO new_info;
+```
+```text
+ALTER TABLE
+
+Query returned successfully in 167 msec.
+```
+
+> Check if the `information` still exists or not.
+
+```sql
+SELECT * FROM information;
+```
+```text
+ERROR:  relation "information" does not exist
+LINE 1: SELECT * FROM information;
+                      ^ 
+
+SQL state: 42P01
+Character: 15
+```
+
+*The table information hasn't been removed or anything, the data still exists just under a new table name new_info.*
+
+```sql
+SELECT * FROM new_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>info_id</th>
+      <th>title</th>
+      <th>person</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+> Rename the column person to people.
+
+```sql
+ALTER TABLE new_info
+RENAME COLUMN person TO people;
+```
+```text
+ALTER TABLE
+
+Query returned successfully in 149 msec.
+```
+
+> Verify the renamed column.
+
+```sql
+SELECT * FROM new_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>info_id</th>
+      <th>title</th>
+      <th>people</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+> Insert some rows/records to the `new_info` table.
+
+```sql
+INSERT INTO new_info(title)
+VALUES(
+  'some new title'
+);
+```
+```text
+ERROR:  null value in column "people" of relation "new_info" violates not-null constraint
+Failing row contains (1, some new title, null). 
+
+SQL state: 23502
+Detail: Failing row contains (1, some new title, null).
+```
+
+*Executing the above query throws an errr stating that null value in column people violates not null constraint. We can solve this error using 2 options:*
+
+- Either, we can add in people column and also add value for it.
+- Or, we can also remove the not null contraint for the pople column using the ALTER command.
+
+
+> [!NOTE]
+> Note that taking option 2 can affect the table permanently on a table level.
+
+> Remove the not null constraint for the people column.
+
+```sql
+ALTER TABLE new_info
+ALTER COLUMN people DROP NOT NULL;
+```
+```text
+ALTER TABLE
+
+Query returned successfully in 138 msec.
+```
+
+> Now, try running the previous INSERT query.
+
+```sql
+INSERT INTO new_info(title)
+VALUES(
+  'some new title'
+);
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 112 msec.
+```
+
+> Verify the insertion.
+
+```sql
+SELECT * FROM new_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>info_id</th>
+      <th>title</th>
+      <th>people</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>some new title</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
