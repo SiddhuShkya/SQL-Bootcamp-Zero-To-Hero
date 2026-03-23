@@ -939,3 +939,90 @@ SELECT * FROM new_info;
   </tbody>
 </table>
 
+---
+
+### 6. DROP 
+
+> Explore the `new_info` table.
+
+```sql
+SELECT * FROM new_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>info_id</th>
+      <th>title</th>
+      <th>people</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>some new title</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+> Remove the people column.
+
+```sql
+ALTER TABLE new_info
+DROP COLUMN people;
+```
+```text
+ALTER TABLE
+
+Query returned successfully in 71 msec.
+```
+
+> Verify if the column people has dropped or not.
+
+```sql
+SELECT * FROM new_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>info_id</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>some new title</td>
+    </tr>
+  </tbody>
+</table>
+
+> Try running the same DROP query again.
+
+```sql
+ALTER TABLE new_info
+DROP COLUMN people;
+```
+```text
+ERROR:  column "people" of relation "new_info" does not exist 
+
+SQL state: 42703
+```
+*You run into an ERROR, stating that the column 'people' for the `new_info` table dows not exist.*
+
+> You can use the IF clause to avoid running into ERRORs like this one.
+
+```sql
+ALTER TABLE new_info
+DROP COLUMN IF EXISTS people;
+```
+```text
+NOTICE:  column "people" of relation "new_info" does not exist, skipping
+ALTER TABLE
+
+Query returned successfully in 56 msec.
+```
