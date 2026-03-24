@@ -1026,3 +1026,151 @@ ALTER TABLE
 
 Query returned successfully in 56 msec.
 ```
+
+---
+
+### 7. CHECK Constraint
+
+> Create a new table `employees`.
+
+```sql
+CREATE TABLE employees(
+  emp_id SERIAL PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  birth_date DATE CHECK (birth_date > '1900-01-01'),
+  hire_date DATE CHECK (hire_date > birth_date),
+  salary INTEGER CHECK (salary > 0)
+)
+```
+```text
+CREATE TABLE
+
+Query returned successfully in 58 msec.
+```
+
+> Insert some data into the `employees` table.
+
+```sql
+INSERT INTO employees(
+  first_name,
+  last_name,
+  birth_date,
+  hire_date, 
+  salary
+)
+VALUES (
+  'Jose', 'Portilla', '1899-11-03', '2010-01-01', 1500
+);
+```
+```text
+ERROR:  new row for relation "employees" violates check constraint "employees_birth_date_check"
+Failing row contains (1, Jose, Portilla, 1899-11-03, 2010-01-01, 1500). 
+
+SQL state: 23514
+Detail: Failing row contains (1, Jose, Portilla, 1899-11-03, 2010-01-01, 1500).
+```
+
+> Update the birth_date as to satisfy the check constraint.
+
+```sql
+INSERT INTO employees(
+  first_name,
+  last_name,
+  birth_date,
+  hire_date, 
+  salary
+)
+VALUES (
+  'Jose', 'Portilla', '1999-11-03', '2010-01-01', 1500
+);
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 48 msec.
+```
+
+> Add in new record.
+
+```sql
+INSERT INTO employees(
+  first_name,
+  last_name,
+  birth_date,
+  hire_date, 
+  salary
+)
+VALUES (
+  'Siddhartha', 'Shakya', '2003-09-05', '2010-01-01', -500
+);
+```
+```text
+ERROR:  new row for relation "employees" violates check constraint "employees_salary_check"
+Failing row contains (3, Siddhartha, Shakya, 2003-09-05, 2010-01-01, -500). 
+
+SQL state: 23514
+Detail: Failing row contains (3, Siddhartha, Shakya, 2003-09-05, 2010-01-01, -500).
+```
+
+> Update the the salary so that it accepts the CHECK constraint (Make salary greater than 0).
+
+```sql
+INSERT INTO employees(
+  first_name,
+  last_name,
+  birth_date,
+  hire_date, 
+  salary
+)
+VALUES (
+  'Siddhartha', 'Shakya', '2003-09-05', '2010-01-01', 500
+);
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 52 msec.
+```
+
+> Verify the inserted records from the `employees` table.
+
+```sql
+SELECT * FROM employees;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>emp_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>birth_date</th>
+      <th>hire_date</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Jose</td>
+      <td>Portilla</td>
+      <td>1999-11-03</td>
+      <td>2010-01-01</td>
+      <td>1500</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>Siddhartha</td>
+      <td>Shakya</td>
+      <td>2003-09-05</td>
+      <td>2010-01-01</td>
+      <td>500</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> Notice how the SERIAL kept the count of the failed attempts to insert. I failed at 1st and 3rd attempt. Therefore SERIAL helps to know that rows were either removed or insert commands failed.
