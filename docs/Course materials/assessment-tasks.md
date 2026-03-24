@@ -1533,3 +1533,165 @@ WHERE firstname = 'David' AND surname = 'Farrell';
     </tr>
   </tbody>
 </table>
+
+---
+
+## Assessment Test 3
+
+### COMPLETE THE FOLLOWING TASKS!
+
+Create a new database called "School" this database should have two tables: teachers and students.
+
+The students table should have columns for student_id, first_name,last_name, homeroom_number, phone,email, and graduation year.
+
+The teachers table should have columns for teacher_id, first_name, last_name, homeroom_number, department, email, and phone.
+
+The constraints are mostly up to you, but your table constraints do have to consider the following:
+
+1. We must have a phone number to contact students in case of an emergency.
+
+2. We must have ids as the primary key of the tables
+
+3. Phone numbers and emails must be unique to the individual.
+
+Once you've made the tables, insert a student named Mark Watney (student_id=1) who has a phone number of 777-555-1234 and doesn't have an email. He graduates in 2035 and has 5 as a homeroom number.
+
+Then insert a teacher names Jonas Salk (teacher_id = 1) who as a homeroom number of 5 and is from the Biology department. His contact info is: jsalk@school.org and a phone number of 777-555-4321.
+
+Keep in mind that these insert tasks may affect your constraints!
+
+> Create the new database school.
+
+<img src="../../images/school-db.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Create `students` table with the above given requirements.
+
+```sql
+CREATE TABLE students (
+    student_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    homeroom_number INTEGER,
+    phone VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE,         
+    graduation_year INTEGER
+);
+```
+```text
+CREATE TABLE
+
+Query returned successfully in 56 msec.
+```
+
+> Create `teachers` table with the above given requirements.
+
+```sql
+CREATE TABLE teachers (
+  teacher_id SERIAL PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  homeroom_number INTEGER,
+  department VARCHAR(50),
+  email VARCHAR(50) UNIQUE,
+  phone VARCHAR(50) UNIQUE
+);
+```
+```text
+CREATE TABLE
+
+Query returned successfully in 43 msec.
+```
+
+> Insert a student named Mark Watney (student_id=1) who has a phone number of 777-555-1234 and doesn't have an email. He graduates in 2035 and has 5 as a homeroom number.
+
+```sql
+INSERT INTO students (first_name, last_name, homeroom_number, phone, graduation_year)
+VALUES (
+  'Mark', 'Watney', 5, '777-555-1234', 2035
+);
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 44 msec.
+```
+
+> Verify the above execution.
+
+```sql
+SELECT * FROM students;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>student_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>homeroom_number</th>
+      <th>phone</th>
+      <th>email</th>
+      <th>graduation_year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Mark</td>
+      <td>Watney</td>
+      <td>5</td>
+      <td>777-555-1234</td>
+      <td>None</td>
+      <td>2035</td>
+    </tr>
+  </tbody>
+</table>
+
+> Insert a teacher names Jonas Salk (teacher_id = 1) who as a homeroom number of 5 and is from the Biology department. His contact info is: jsalk@school.org and a phone number of 777-555-4321.
+
+```sql
+INSERT INTO teachers (first_name, last_name, homeroom_number, department, email, phone)
+VALUES (
+  'Jonas', 'Salk', 5, 'Biology', 'jsalk@school.org', '777-555-4321'
+);
+```
+```text
+INSERT 0 1
+
+Query returned successfully in 52 msec.
+```
+
+> Verify the above execution.
+
+```sql
+SELECT * FROM teachers;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>teacher_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>homeroom_number</th>
+      <th>department</th>
+      <th>email</th>
+      <th>phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Jonas</td>
+      <td>Salk</td>
+      <td>5</td>
+      <td>Biology</td>
+      <td>jsalk@school.org</td>
+      <td>777-555-4321</td>
+    </tr>
+  </tbody>
+</table>
