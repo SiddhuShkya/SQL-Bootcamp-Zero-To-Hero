@@ -1696,3 +1696,79 @@ WHERE EXTRACT(dow FROM payment_date) = 1;
   </tbody>
 </table>
 
+---
+
+### 10. CASE
+
+`Challenge 1`: 
+
+- We want to know and compare the various amounts of films we have per movie rating. 
+
+- Use CASE and the dvdrental database to re-create this table:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>r</th>
+      <th>pg</th>
+      <th>pg13</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>195</td>
+      <td>194</td>
+      <td>223</td>
+    </tr>
+  </tbody>
+</table>
+
+`Hints`: 
+
+- Review our CASE expression example that used SUM in the previous lecture.
+
+`Solution`:
+
+```sql
+SELECT 
+	SUM(
+		CASE rating
+		WHEN 'R' THEN 1
+		ELSE 0
+		END 
+	) AS r,
+	SUM(
+		CASE rating
+		WHEN 'PG' THEN 1
+		ELSE 0
+		END
+	) AS pg,
+	SUM(
+	 	CASE rating
+		 WHEN 'PG-13' THEN 1
+		 ELSE 0
+		 END
+	) AS pg13
+FROM film;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>r</th>
+      <th>pg</th>
+      <th>pg13</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>195</td>
+      <td>194</td>
+      <td>223</td>
+    </tr>
+  </tbody>
+</table>
