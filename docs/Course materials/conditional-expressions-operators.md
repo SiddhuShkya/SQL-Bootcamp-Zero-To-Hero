@@ -405,4 +405,171 @@ FROM film;
   </tbody>
 </table>
 
+---
 
+### 2. CAST
+
+> Display the string '5' as integer 5.
+
+```sql
+SELECT CAST('5' AS INTEGER);
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>int4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+
+> Try casting the string 'five' to integer 5.
+```sql
+SELECT CAST('five' AS INTEGER);
+```
+```text
+ERROR:  invalid input syntax for type integer: "five"
+LINE 1: SELECT CAST('five' AS INTEGER);
+                    ^ 
+
+SQL state: 22P02
+Character: 13
+```
+
+> Utilize the special CAST operator provided by postgresql.
+
+```sql
+SELECT '5'::INTEGER;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>int4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE] 
+> [This CAST operator is specifically created for postgresql only. Therefore you can only use this operator when you are using postgresql.]
+
+> Explore the `rental` table
+
+```sql
+SELECT * FROM rental;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rental_id</th>
+      <th>rental_date</th>
+      <th>inventory_id</th>
+      <th>customer_id</th>
+      <th>return_date</th>
+      <th>staff_id</th>
+      <th>last_update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>2005-05-24 22:54:33</td>
+      <td>1525</td>
+      <td>459</td>
+      <td>2005-05-28 19:40:33</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>2005-05-24 23:03:39</td>
+      <td>1711</td>
+      <td>408</td>
+      <td>2005-06-01 22:12:39</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>2005-05-24 23:04:41</td>
+      <td>2452</td>
+      <td>333</td>
+      <td>2005-06-03 01:43:41</td>
+      <td>2</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>2005-05-24 23:05:21</td>
+      <td>2079</td>
+      <td>222</td>
+      <td>2005-06-02 04:33:21</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>2005-05-24 23:08:07</td>
+      <td>2792</td>
+      <td>549</td>
+      <td>2005-05-27 01:32:07</td>
+      <td>1</td>
+      <td>2006-02-16 02:30:53</td>
+    </tr>
+  </tbody>
+</table>
+
+> Find out the length or the number of digits present in each of the inventory_id.
+
+```sql
+SELECT CHAR_LENGTH(CAST(inventory_id AS VARCHAR)) AS inventory_id_len
+FROM rental;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>inventory_id_len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>

@@ -1700,7 +1700,7 @@ WHERE EXTRACT(dow FROM payment_date) = 1;
 
 ### 10. CASE
 
-`Challenge 1`: 
+`Challenge`: 
 
 - We want to know and compare the various amounts of films we have per movie rating. 
 
