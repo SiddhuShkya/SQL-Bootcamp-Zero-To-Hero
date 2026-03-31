@@ -573,3 +573,176 @@ FROM rental;
     </tr>
   </tbody>
 </table>
+
+---
+
+### 3. NULLIF
+
+> Create a new database `testdb` and create a new table named `depts`  
+
+- Create the new table
+
+```sql
+CREATE TABLE depts(
+  first_name VARCHAR(50),
+  department VARCHAR(50)
+);
+```
+```text
+CREATE TABLE
+
+Query returned successfully in 48 msec.
+```
+
+- Insert the data
+
+```sql
+INSERT INTO depts (first_name, department) 
+VALUES 
+('Vinton', 'A'),
+('Lauren', 'A'),
+('Claire', 'B');
+```
+```text
+INSERT 0 3
+
+Query returned successfully in 43 msec.
+```
+
+> Explore the recently created `depts` table.
+
+```sql
+SELECT * FROM depts;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>department</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Vinton</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Lauren</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Claire</td>
+      <td>B</td>
+    </tr>
+  </tbody>
+</table>
+
+> Calculate the ratio between depts A to B.
+
+```sql
+SELECT
+SUM(CASE WHEN department = 'A' THEN 1 ELSE 0 END) / 
+SUM(CASE WHEN department = 'B' THEN 1 ELSE 0 END) AS department_ratio
+FROM depts;
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>department_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+> Delete the rows with the department 'B'.
+
+```sql
+DELETE FROM depts
+WHERE department = 'B';
+```
+```text
+DELETE 1
+
+Query returned successfully in 52 msec.
+```
+
+> Verify the deletion of the rows.
+
+```sql
+SELECT * FROM depts;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>department</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Vinton</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Lauren</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+
+> Again, try to calculate the ratio between depts A to B.
+
+```sql
+SELECT
+SUM(CASE WHEN department = 'A' THEN 1 ELSE 0 END) / 
+SUM(CASE WHEN department = 'B' THEN 1 ELSE 0 END) AS department_ratio
+FROM depts;
+```
+```text
+ERROR:  division by zero 
+
+SQL state: 22012
+```
+
+> [!NOTE]
+> The above error makes sense as now we are dividing something by 0. You can use the NULLIF clause to handle this sort of error.
+
+> Calculate the ratio between depts A to B using the NULLIF.
+
+```sql
+SELECT
+SUM(CASE WHEN department = 'A' THEN 1 ELSE 0 END) / 
+NULLIF(SUM(CASE WHEN department = 'B' THEN 1 ELSE 0 END), 0) AS department_ratio
+FROM depts;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>department_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE] 
+> This time the result is not an error as we arent trying to divide something by 0 but by NULL. We're essentially using the NULLIF clause as a check against returning 0.
