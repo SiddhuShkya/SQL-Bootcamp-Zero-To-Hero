@@ -746,3 +746,400 @@ FROM depts;
 
 > [!NOTE] 
 > This time the result is not an error as we arent trying to divide something by 0 but by NULL. We're essentially using the NULLIF clause as a check against returning 0.
+
+---
+
+### 4. VIEW
+
+Imagine we are working on a project within our dvdrental database, where we need to get information regarding the customer names and their addresses.
+
+> Explore the `customer` table.
+
+```sql
+SELECT * FROM customer;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>customer_id</th>
+      <th>store_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>address_id</th>
+      <th>activebool</th>
+      <th>create_date</th>
+      <th>last_update</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>524</td>
+      <td>1</td>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>jared.ely@sakilacustomer.org</td>
+      <td>530</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>mary.smith@sakilacustomer.org</td>
+      <td>5</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>patricia.johnson@sakilacustomer.org</td>
+      <td>6</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>linda.williams@sakilacustomer.org</td>
+      <td>7</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>barbara.jones@sakilacustomer.org</td>
+      <td>8</td>
+      <td>True</td>
+      <td>2006-02-14</td>
+      <td>2013-05-26 14:49:45.738</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+> Explore the `address` table.
+
+```sql
+SELECT * FROM address;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address_id</th>
+      <th>address</th>
+      <th>address2</th>
+      <th>district</th>
+      <th>city_id</th>
+      <th>postal_code</th>
+      <th>phone</th>
+      <th>last_update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>47 MySakila Drive</td>
+      <td>NaN</td>
+      <td>Alberta</td>
+      <td>300</td>
+      <td></td>
+      <td></td>
+      <td>2006-02-15 09:45:30</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>28 MySQL Boulevard</td>
+      <td>NaN</td>
+      <td>QLD</td>
+      <td>576</td>
+      <td></td>
+      <td></td>
+      <td>2006-02-15 09:45:30</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>23 Workhaven Lane</td>
+      <td>NaN</td>
+      <td>Alberta</td>
+      <td>300</td>
+      <td></td>
+      <td>14033335568</td>
+      <td>2006-02-15 09:45:30</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1411 Lillydale Drive</td>
+      <td>NaN</td>
+      <td>QLD</td>
+      <td>576</td>
+      <td></td>
+      <td>6172235589</td>
+      <td>2006-02-15 09:45:30</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1913 Hanoi Way</td>
+      <td></td>
+      <td>Nagasaki</td>
+      <td>463</td>
+      <td>35200</td>
+      <td>28303384290</td>
+      <td>2006-02-15 09:45:30</td>
+    </tr>
+  </tbody>
+</table>
+
+> Join the `customer` and `address` table to view information of customers (name and address).
+
+```sql
+SELECT c.first_name, c.last_name, a.address
+FROM customer c
+LEFT JOIN address a 
+  ON c.address_id = a.address_id;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>1003 Qinhuangdao Street</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>1913 Hanoi Way</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>1121 Loja Avenue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>692 Joliet Street</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>1566 Inegl Manor</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!NOTE]
+> This type of query can get complicated very quickly, so it might be useful to save or store this type oif query as a view instead of having to write this over and over again.
+
+> Store the previous JOIN query using VIEW.
+
+```sql
+CREATE VIEW customer_info AS
+(
+  SELECT c.first_name, c.last_name, a.address
+  FROM customer c
+  LEFT JOIN address a 
+    ON c.address_id = a.address_id
+);
+```
+```text
+CREATE VIEW
+
+Query returned successfully in 59 msec.
+```
+
+> Verify if the VIEW has been created or not.
+
+```sql
+SELECT * FROM customer_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>1003 Qinhuangdao Street</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>1913 Hanoi Way</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>1121 Loja Avenue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>692 Joliet Street</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>1566 Inegl Manor</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!IMPORTANT]
+> Keep in mind that you are actually duplicating any data or information internally. You are really just saving the query which is automaticallyt beign called.
+
+*You can also expand the customer_info by adding things like WHERE, HAVING & GROUP BY calls and so on...*
+
+> [!NOTE]
+> You can also alter a view and basically change the underlying query information from it, You can simply call the create or replace command.
+
+> Alter the customer_info.
+
+```sql
+-- Added district column
+
+CREATE OR REPLACE VIEW customer_info AS
+(
+  SELECT c.first_name, c.last_name, a.address, a.district
+  FROM customer c
+  LEFT JOIN address a 
+    ON c.address_id = a.address_id
+);
+```
+```text
+CREATE VIEW
+
+Query returned successfully in 54 msec.
+```
+
+> Verify the updated customer_info.
+
+```sql
+SELECT * FROM customer_info;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>address</th>
+      <th>district</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jared</td>
+      <td>Ely</td>
+      <td>1003 Qinhuangdao Street</td>
+      <td>West Java</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mary</td>
+      <td>Smith</td>
+      <td>1913 Hanoi Way</td>
+      <td>Nagasaki</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Patricia</td>
+      <td>Johnson</td>
+      <td>1121 Loja Avenue</td>
+      <td>California</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Linda</td>
+      <td>Williams</td>
+      <td>692 Joliet Street</td>
+      <td>Attika</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Barbara</td>
+      <td>Jones</td>
+      <td>1566 Inegl Manor</td>
+      <td>Mandalay</td>
+    </tr>
+  </tbody>
+</table>
+
+> Rename the view customer_info to customer_address.
+
+```sql
+ALTER VIEW customer_info RENAME TO customer_address;
+```
+```sql
+ALTER VIEW
+
+Query returned successfully in 42 msec.
+```
+
+> Drop the customer_info view.
+
+```sql
+DROP VIEW IF EXISTS customer_address;
+```
+```text
+DROP VIEW
+
+Query returned successfully in 74 msec.
+```
+
