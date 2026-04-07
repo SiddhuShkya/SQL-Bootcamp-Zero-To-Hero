@@ -1145,7 +1145,7 @@ Query returned successfully in 74 msec.
 
 ---
 
-### 4. Import/Export Functionality
+### 5. Import/Export Functionality
 
 In this section we are going to explore the Import/Export functionality of PgAdmin,
 which allows us to import data from a .csv file to an already existing table. 
