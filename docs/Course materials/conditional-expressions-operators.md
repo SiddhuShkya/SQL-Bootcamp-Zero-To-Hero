@@ -1143,3 +1143,194 @@ DROP VIEW
 Query returned successfully in 74 msec.
 ```
 
+---
+
+### 4. Import/Export Functionality
+
+In this section we are going to explore the Import/Export functionality of PgAdmin,
+which allows us to import data from a .csv file to an already existing table. 
+
+There are some important notes to keep in mind when using Import/Export functionality.
+
+> [!NOTE]
+> Not every outside data file will work, variations in formatting, macros, data types, etc. may prevent the import command from reading the file, at which point, you must edit your file to be compatible with SQL. 
+
+Details of compatible file types and examples are available in the online documentation:
+
+> Documentation: [SQL Copy](https://www.postgresql.org/docs/12/sql-copy.html)
+
+*The copy comand is what import uses internally when its actually running the SQL code to import things through the pgAdmin graphical user interface.*
+
+>[!IMPORTANT]
+> You must provide the 100% correct file path to your outside file, otherwise the import command will fail to find the file.
+
+*The most common mistake if failing to provide the correct file path, confirm the file's lcoation under its properties.*
+
+> [!IMPORTANT]
+> The import command does not create a table for you, it assumes a table is already created. 
+
+*Currently there is no automated way within pgAdmin to create a table directly from a .csv file.*
+
+> Create a simple csv file using MS Excel.
+
+<img src="../../images/ms-excel-simple-table.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Download the excel sheet as comma seperated values (csv).
+
+<img src="../../images/ms-excel-simple-table-csv.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+> Verify the downloaded path of the csv file.
+
+```sh
+siddhu@ubuntu:~/Downloads$ ls
+'simple_table(Sheet1).csv'
+siddhu@ubuntu:~/Downloads$ pwd
+/home/siddhu/Downloads
+```
+
+> Rename the file so that it doesn't have any spaces.
+
+```text
+simple_table(Sheet1).csv -> simple_table.csv
+```
+
+
+> Open up your query tool from the testdb database and create a new table from there which matches the format of the simple_table.csv.
+
+```sql
+CREATE TABLE simple(
+  a INTEGER,
+  b INTEGER,
+  c INTEGER
+);
+```
+```text
+CREATE TABLE
+
+Query returned successfully in 123 msec.
+```
+
+> Copy the information that is within the previously downloaded csv file and put it into the above table created.
+
+- Verify if the simple table has been created or not.
+
+```sql
+SELECT * FROM simple;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+- Expand the Object Explorer panel up to the simple table inside the testdb database and then right click the simple table.
+
+<img src="../../images/testdb-import-export.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+
+> Go ahead and click on Import/Export data and manually type in or open the downloaded csv file.
+
+My data path : 
+
+```text
+/home/siddhu/Downloads/simple_table.csv
+```
+
+<img src="../../images/simple-table-import.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+- Go to the options tab and enable the header option to let postgresql know that we have column headings in our csv data.
+
+<img src="../../images/simple-table-import-header.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+- Hit ok, and verify if the information has been copied to the simple table or not.
+
+```sql
+SELECT * FROM simple;
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>6</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>8</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>9</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>10</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+
+> You can also export the table as csv orr any other format doing the things similar to above.
+
+- Right click the simple table and click on Import/Export.
+
+<img src="../../images/testdb-import-export.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+
+- Click on Export and give the path where you want to download/save the file at.
+
+<img src="../../images/simple-table-export.png"
+    alt="Image Caption"
+    style="border:1px solid white; padding:1px; background:#fff; width: 3000px;" />
+
+- Hit ok, and then verify the save/downlaoded file from the above specified file path.
+
+```sh
+siddhu@ubuntu:~/Downloads$ ls
+simple.csv  simple_table.csv
+```
+
+*The simple.csv is the data we saved by exporting the simple_table from the pgAdmin.*
+
+---
+
+# <div align="center">Thank You for Going Through This Guide! 🙏✨</div>
