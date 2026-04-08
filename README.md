@@ -33,32 +33,11 @@ Throughout the course, we will be getting :
 
 ---
 
-### Course Curriculum
+### Certificate of Course Completion
 
-1. `Postgres Installation` → We will begin this course by installing PostgreSQL and PG Admin.
-
-2. `Basic Sections` :
-    
-    2.1 **Databases & Tables Basics** → Creating databases and tables.
-
-    2.2 **SQL Statement Fundamentals** → Use SQL syntax to query the database and tables we created in the previous section.
-
-    2.3 **GROUP BY Clause** → Aggregating data and grouping results using aggregate functions.
-
-    2.4 **Assessment 1** → First assessment test.
-
-3.  `Advanced Sections` :
-
-    3.1 **JOINS** →
-
-    3.2 **Advanced SQL Commands** →  
-
-    3.3 **Assessment 2** → Second Assessment test.
-
-4. `Final Sections` :
-
-    4.1 **Create databases & tables** →  Creating new databases & tables using SQL syntax.
-
-    4.2 **Extra Lectures** → Lecture on Views, using PostgreSQL with the python programming langauge.
+<p align="left">
+  <img src="certificate/UC-5aa96a48-14df-4219-868c-68d9ea1658c2.png" alt="Course Completion Certificate" width="1200"/>
+</p>
 
 ---
+
